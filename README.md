@@ -14,7 +14,7 @@ Thule was built to provide guidance and productivity to JavaScript developers. F
 - Provide isomorphic support for first page load
 - Encourage testing
 
-## Proven Technology
+## Proven technology
 
 Thule is built atop modern JavaScript libraries to provide a full framework for frontend development.
 
@@ -25,4 +25,5 @@ Thule is built atop modern JavaScript libraries to provide a full framework for 
 - **Sass** for styling your application
 - **Babel** for providing modern JavaScript
 - **Browserify** for building your application
-- and many other libraries for everything in between.
+
+Along with many other libraries for everything in between. Go open source!
