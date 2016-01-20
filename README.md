@@ -6,6 +6,8 @@
 
 ## Goals
 
+Thule was built to provide guidance and productivity to JavaScript developers. Frontend development is an exciting place at the moment and there a lot's of opinions and libraries, Thule brings particularly good ones together for you.
+
 - Make developers more productive
 - Provide structure and consistency to newcomers
 - Prefer serverless, offline first approaches
