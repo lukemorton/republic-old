@@ -4,7 +4,7 @@
 
 ## Goals
 
-Thule was built to provide guidance and productivity to JavaScript developers. Frontend development is an exciting place at the moment and there are many opinions and libraries, Thule brings particularly good ones together for you to:
+Republic was built to provide guidance and productivity to JavaScript developers. Frontend development is an exciting place at the moment and there are many opinions and libraries, Republic brings particularly good ones together for you to:
 
 - Make developers more productive
 - Provide structure and consistency to newcomers
@@ -14,7 +14,7 @@ Thule was built to provide guidance and productivity to JavaScript developers. F
 
 ## Proven technology
 
-Thule is built atop modern JavaScript libraries to provide a full framework for frontend development.
+Republic is built atop modern JavaScript libraries to provide a full framework for frontend development.
 
 - **React** for building the views of your application
 - **Redux** for managing state or data of your application
