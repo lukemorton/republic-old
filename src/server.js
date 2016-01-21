@@ -1,6 +1,6 @@
 import express from 'express';
 import { renderToStaticMarkup } from 'react-dom/server';
-import App from './views/app';
+import App from './application';
 import Layout from './views/layout';
 import loadConfig from './configuration';
 

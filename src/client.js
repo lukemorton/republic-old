@@ -1,6 +1,8 @@
 import ReactDOM from 'react-dom';
-import App from './views/app';
+import App from './application';
+import loadConfig from './configuration';
 
 export function run() {
-  ReactDOM.render(App, document.body);
+  const config = loadConfig(process.env);
+  ReactDOM.render(App({ config }), document.body);
 }
