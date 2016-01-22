@@ -1,5 +1,5 @@
 import express from 'express';
-import { renderToStaticMarkup } from 'react-dom/server';
+import { renderToStaticMarkup } from 'react-dom-stream/server';
 import App from './application';
 import Layout from './views/layout';
 import loadConfig from './configuration';
