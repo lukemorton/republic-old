@@ -4,7 +4,8 @@
   "description": "Productive Javascript",
   "main": "lib/index.js",
   "bin": {
-    "republic": "lib/cli.js"
+    "republic": "lib/cli/index.js",
+    "republic-dev": "lib/cli/dev.js"
   },
   "scripts": {
     "build": "babel src --out-dir lib",

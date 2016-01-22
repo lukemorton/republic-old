@@ -23,6 +23,7 @@ function createApp(config) {
   return app;
 }
 
-export function run() {
-  createApp(loadConfig(process.env)).listen(config.port || 3000);
+export function run({ env }) {
+  const config = loadConfig(env);
+  createApp(config).listen(config.port || 3000);
 }
