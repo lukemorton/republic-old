@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/drpheltright/thule.git"
+    "url": "git+https://github.com/lukemorton/republic.git"
   },
   "author": "Luke Morton",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/drpheltright/thule/issues"
+    "url": "https://github.com/lukemorton/republic/issues"
   },
-  "homepage": "https://github.com/drpheltright/thule#readme"
+  "homepage": "https://github.com/lukemorton/republic#readme",
 }
