@@ -1,3 +1,3 @@
-export function Layout() {
+export default function () {
 
 }

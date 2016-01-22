@@ -5,6 +5,6 @@ function loadRoutes(config) {
   // config.app.configPath
 }
 
-export default function Router({ config }) {
+export default function ({ config }) {
   return Router({ history: createHistory() }, loadRoutes(config));
 }
