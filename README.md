@@ -7,7 +7,7 @@
 Republic was built to provide guidance and productivity to JavaScript developers. Frontend development is an exciting place at the moment and there are many opinions and libraries, Republic brings particularly good ones together for you to:
 
 - Make developers more productive
-- Provide structure and consistency to newcomers
+- Welcome newcomers with structure and consistency
 - Prefer serverless, offline first approaches
 - Provide isomorphic support for first page load
 - Encourage testing
