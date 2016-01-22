@@ -1,5 +1,7 @@
 # Contributing
 
+Before contributing you must have read The Republic by Plato. Alternatively you could try the audiobook: https://www.youtube.com/watch?v=7rO4io3SH-g
+
 1. Fork it ( https://github.com/drpheltright/pieces/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
