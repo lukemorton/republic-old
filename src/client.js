@@ -1,7 +1,9 @@
 import ReactDOM from 'react-dom';
-import App from './application';
+import { Router } from 'react-router';
+import { Provider } from 'react-redux';
+import App from './views/application';
 import loadConfig from './configuration';
-import createStore from './store';
+import { createStore } from './store';
 import createHistory from 'history/lib/createHashHistory';
 
 export function run() {
