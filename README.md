@@ -2,6 +2,8 @@
 
 ![Plato who wrote Republic](https://upload.wikimedia.org/wikipedia/commons/4/4a/Plato-raphael.jpg)
 
+[![Build Status](https://travis-ci.org/lukemorton/republic.svg?branch=master)](https://travis-ci.org/lukemorton/republic)
+
 ## Goals
 
 Republic was built to provide guidance and productivity to JavaScript developers. Frontend development is an exciting place at the moment and there are many opinions and libraries, Republic brings particularly good ones together for you to:
