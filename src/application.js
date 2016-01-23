@@ -1,12 +1,6 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import Router from './router';
+const { div } = React.DOM;
 
-function loadStore(config) {
-
-}
-
-export default function ({ config }) {
-  const store = loadStore(config);
-  return Provider({ store }, Router({ config }));
+export default function () {
+  return div({}, 'Hello World');
 }
