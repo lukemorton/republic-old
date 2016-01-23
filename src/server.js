@@ -1,6 +1,6 @@
 import express from 'express';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
-import App from './application';
+import App from './views/application';
 import loadConfig from './configuration';
 
 function serveStatic(app, config) {
@@ -11,6 +11,7 @@ function serveStatic(app, config) {
 function renderPage(config) {
   return function (request, response) {
     response.write('<!DOCTYPE html>');
+    console.log(App);
     renderToStaticMarkup(App({ config })).pipe(response);
   };
 }
