@@ -3,3 +3,5 @@ node_js:
   - '5.5'
 script:
   - npm run lint
+notifications:
+  slack: the-island:S6t9Xu6CVPbfrOGGmpoZQgY4
