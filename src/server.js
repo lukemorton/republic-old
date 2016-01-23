@@ -1,7 +1,7 @@
 import express from 'express';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
-import App from './views/application';
-import loadConfig from './configuration';
+import { buildApp } from './application';
+import { loadConfig } from './configuration';
 
 function serveStatic(app, config) {
   if (!config.express.serveStatic) return;
@@ -9,9 +9,9 @@ function serveStatic(app, config) {
 }
 
 function renderPage(config) {
-  return function (request, response) {
+  return function(request, response) {
+    const App = buildApp({ config });
     response.write('<!DOCTYPE html>');
-    console.log(App);
     renderToStaticMarkup(App({ config })).pipe(response);
   };
 }
@@ -25,9 +25,9 @@ function createApp(config) {
 
 export function run({ env }) {
   const config = loadConfig(env);
-  console.log("It all started when they descended to the Piraeus...")
+  console.log('It all started when they descended to the Piraeus...');
 
-  createApp(config).listen(config.port, function () {
+  createApp(config).listen(config.port, function() {
     console.log(`on port ${config.port}`);
   });
 }
