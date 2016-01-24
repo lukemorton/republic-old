@@ -10,7 +10,7 @@ function serveStatic(app, config) {
 }
 
 function renderPage(config) {
-  return function(request, response) {
+  return function (request, response) {
     function onFinish(app) {
       response.write('<!DOCTYPE html>');
       renderToStaticMarkup(app).pipe(response);
@@ -33,7 +33,7 @@ export function run({ env }) {
   console.log('');
   console.log('It all started when they descended to the Piraeus...');
 
-  createApp(config).listen(config.port, function() {
+  createApp(config).listen(config.port, function () {
     console.log(`on port ${config.port}`);
     console.log('');
   });

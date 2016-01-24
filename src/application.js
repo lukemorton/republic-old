@@ -5,7 +5,7 @@ import fs from 'fs';
 const browserifyOptions = {
   standalone: 'app',
   insertGlobalVars: {
-    React: function(file, dir) {
+    React: function (file, dir) {
       return 'require("react")';
     }
   }
@@ -23,7 +23,7 @@ function serverBundleStream(config, onFinish) {
   console.log('Building app at', config.app.rootPath);
 
   return fs.createWriteStream(bundlePath)
-    .on('finish', function() {
+    .on('finish', function () {
       console.log('Finished building app.');
       onFinish(App({ app: require(bundlePath).default, config }));
     });

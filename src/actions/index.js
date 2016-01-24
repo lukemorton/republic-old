@@ -7,10 +7,10 @@ program
   .version(version)
   .parse(process.argv)
   .command('dev')
-  .action(function(dir, otherDirs) {
+  .action(function (dir, otherDirs) {
     console.log('rmdir %s', dir);
     if (otherDirs) {
-      otherDirs.forEach(function(oDir) {
+      otherDirs.forEach(function (oDir) {
         console.log('rmdir %s', oDir);
       });
     }
