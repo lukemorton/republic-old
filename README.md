@@ -41,4 +41,15 @@ be adhering to semantic versioning but keep changing APIs in mind.
 
 ## What's working right now
 
-You can currently boot up the server from an application.
+You can currently boot up the server from an application. Your application should look like [`examples/`](examples/).
+
+Change into your application directory then run the following:
+
+```npm install -g republic
+republic dev```
+
+If you have cloned this repository and are working on it you may instead want to:
+
+```npm install && sudo npm link && republic dev```
+
+This will boot up a server at http://localhost:3000 
