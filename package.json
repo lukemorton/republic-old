@@ -46,12 +46,24 @@
   },
   "eslintConfig": {
     "rules": {
-      "semi": [2, "always"],
-      "space-before-function-paren": [2, "never"]
+      "semi": [
+        2,
+        "always"
+      ],
+      "space-before-function-paren": [
+        2,
+        "never"
+      ]
     },
-    "extends": ["standard", "standard-react"]
+    "extends": [
+      "standard",
+      "standard-react"
+    ]
   },
   "babel": {
-    "presets": ["es2015", "react"]
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }
