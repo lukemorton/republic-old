@@ -27,3 +27,18 @@ Republic is built atop modern JavaScript libraries to provide a full framework f
 - **Browserify** for building your application
 
 Along with many other libraries for everything in between. Go open source!
+
+## Active development
+
+Do you want JavaScript development to feel productive? Are you like us and get
+tired of wiring up JS applications? Writing the same old actions and reducers.
+Or perhaps you just want to help out with some open source?
+
+We'd love you to get involved! Check out our [contribution guidelines](docs/contributing.md).
+
+Whilst we're actively developing republic things our bound to change. We will
+be adhering to semantic versioning but keep changing APIs in mind.
+
+## What's working right now
+
+You can currently boot up the server from an application.
