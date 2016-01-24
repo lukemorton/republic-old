@@ -1,6 +1,5 @@
 import App from './views/application';
 import browserify from 'browserify';
-import babel from 'babel-core';
 import fs from 'fs';
 
 function buildIndex(rootPath) {
@@ -15,7 +14,7 @@ export function buildApp({ config, onFinish }) {
 
   const outputStream = fs.createWriteStream('bundle.js')
     .on('finish', function() {
-      console.log('Finished building app.')
+      console.log('Finished building app.');
       onFinish(App({ app: require('../bundle').default, config }));
     });
 
