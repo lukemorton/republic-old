@@ -2,6 +2,7 @@
 
 ![Plato who wrote Republic](https://upload.wikimedia.org/wikipedia/commons/4/4a/Plato-raphael.jpg)
 
+[![npm version](https://badge.fury.io/js/republic.svg)](https://badge.fury.io/js/republic)
 [![Build Status](https://travis-ci.org/lukemorton/republic.svg?branch=master)](https://travis-ci.org/lukemorton/republic)
 
 ## Goals
