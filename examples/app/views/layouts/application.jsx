@@ -1,6 +1,10 @@
-export default ({ children }) =>
-  <html>
-    <body>
-      {children}
-    </body>
-  </html>
+export default function ({ initialStateScript, children }) {
+  return (
+    <html>
+      <body>
+        {initialStateScript}
+        {children}
+      </body>
+    </html>
+  );
+}
