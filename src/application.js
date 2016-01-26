@@ -22,11 +22,10 @@ function serverBundleStream(config, onFinish) {
   const bundlePath = config.app.tmpPath + '/bundle.js';
   console.log('Building app at', config.app.rootPath);
 
-  return fs.createWriteStream(bundlePath)
-    .on('finish', function () {
-      console.log('Finished building app.');
-      onFinish(App({ app: require(bundlePath).default, config }));
-    });
+  return fs.createWriteStream(bundlePath).on('finish', function () {
+    console.log('Finished building app.');
+    onFinish(App({ app: require(bundlePath).default, config }));
+  });
 }
 
 export function buildApp({ config, onFinish }) {
