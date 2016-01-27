@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
-import { buildApp } from './application';
+import { buildIndex } from './application';
 import { loadConfig } from './configuration';
 import { match } from 'react-router';
 import { createStore } from './store';
@@ -33,7 +33,7 @@ function renderPage(config) {
       });
     }
 
-    buildApp({ config, onBuildFinish });
+    buildIndex({ config, onBuildFinish });
   };
 }
 
