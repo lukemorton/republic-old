@@ -18,7 +18,7 @@ function buildIndexEntryPoint(config) {
 }
 
 function indexStream({ config, onBuildFinish, url }) {
-  const bundlePath = config.app.tmpPath + '/bundle.js';
+  const bundlePath = config.app.tmpPath + '/index.dist.js';
   console.log('Building app index at', config.app.rootPath);
 
   return fs.createWriteStream(bundlePath).on('finish', function () {
