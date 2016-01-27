@@ -54,7 +54,7 @@ republic dev
 If you have cloned this repository and are working on it you may instead want to:
 
 ```
-npm build && sudo npm link && republic dev
+npm install && sudo npm link && republic dev
 ```
 
 This will boot up a server at http://localhost:3000
