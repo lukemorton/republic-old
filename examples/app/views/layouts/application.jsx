@@ -1,9 +1,9 @@
-export default function ({ initialStateScript, children }) {
+export default function ({ children, javascripts }) {
   return (
     <html>
       <body>
-        {initialStateScript}
         {children}
+        {javascripts}
       </body>
     </html>
   );
