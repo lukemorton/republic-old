@@ -3,6 +3,9 @@ import morgan from 'morgan';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
 import { buildApp } from './application';
 import { loadConfig } from './configuration';
+import { match } from 'react-router';
+import { createStore } from './store';
+import ServerContainer from './containers/server';
 
 function serveStatic(app, config) {
   if (!config.express.serveStatic) return;
@@ -11,12 +14,22 @@ function serveStatic(app, config) {
 
 function renderPage(config) {
   return function (request, response) {
-    function onFinish(app) {
+    function onBuildFinish(app) {
       response.write('<!DOCTYPE html>');
-      renderToStaticMarkup(app).pipe(response);
+
+      match({ routes: app.config.routes.default, location: request.url }, (error, redirectLocation, renderProps) => {
+        if (error || redirectLocation) {
+          console.log(error);
+          console.log(redirectLocation);
+          return;
+        }
+
+        const store = createStore();
+        renderToStaticMarkup(ServerContainer({ app, config, store, renderProps })).pipe(response);
+      });
     }
 
-    buildApp({ config, onFinish });
+    buildApp({ config, onBuildFinish });
   };
 }
 
