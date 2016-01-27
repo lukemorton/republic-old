@@ -23,6 +23,7 @@ function serverBundleStream({ config, onBuildFinish, url }) {
 
   return fs.createWriteStream(bundlePath).on('finish', function () {
     console.log('Finished building app.');
+	  delete require.cache[bundlePath];
     onBuildFinish(require(bundlePath).default);
   });
 }
