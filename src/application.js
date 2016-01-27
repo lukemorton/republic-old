@@ -23,7 +23,7 @@ function indexStream({ config, onBuildFinish, url }) {
 
   return fs.createWriteStream(bundlePath).on('finish', function () {
     console.log('Finished building app index.');
-	  delete require.cache[bundlePath];
+    delete require.cache[bundlePath];
     onBuildFinish(require(bundlePath).default);
   });
 }
