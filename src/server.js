@@ -19,13 +19,14 @@ function renderPage(config) {
 
       match({ routes: app.config.routes.default, location: request.url }, (error, redirectLocation, renderProps) => {
         if (error || redirectLocation) {
-          console.log(error);
-          console.log(redirectLocation);
-          return;
+          console.log('error:', error);
+          console.log('redirectLocation:', redirectLocation);
+        } else if (!renderProps) {
+          console.log('no route matched');
+        } else {
+          const store = createStore();
+          renderToStaticMarkup(ServerContainer({ app, config, store, renderProps })).pipe(response);
         }
-
-        const store = createStore();
-        renderToStaticMarkup(ServerContainer({ app, config, store, renderProps })).pipe(response);
       });
     }
 
