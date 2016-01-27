@@ -15,16 +15,19 @@ function serveStatic(app, config) {
 function renderPage(config) {
   return function (request, response) {
     function onBuildFinish(app) {
-      response.write('<!DOCTYPE html>');
-
       match({ routes: app.config.routes.default, location: request.url }, (error, redirectLocation, renderProps) => {
-        if (error || redirectLocation) {
+        if (redirectLocation) {
+          response.redirect(redirectLocation.pathname + redirectLocation.search);
+        } else if (error) {
           console.log('error:', error);
           console.log('redirectLocation:', redirectLocation);
+          response.status(500).send(error.message);
         } else if (!renderProps) {
           console.log('no route matched');
+          response.status(404).send('Not found');
         } else {
           const store = createStore();
+          response.write('<!DOCTYPE html>');
           renderToStaticMarkup(ServerContainer({ app, config, store, renderProps })).pipe(response);
         }
       });
