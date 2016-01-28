@@ -1,12 +1,9 @@
 import browserify from 'browserify';
 import fs from 'fs';
 
-const indexBrowserifyOptions = {
-  standalone: 'app',
-  insertGlobalVars: {
-    React: function (file, dir) {
-      return 'require("react")';
-    }
+const insertGlobalVars = {
+  React: function (file, dir) {
+    return 'require("react")';
   }
 };
 
@@ -35,7 +32,7 @@ function indexStream({ config, onBuildFinish }) {
 export function buildIndex({ config, onBuildFinish }) {
   ensureTmpPathExists(config);
 
-  browserify(buildIndexEntryPoint(config), indexBrowserifyOptions)
+  browserify(buildIndexEntryPoint(config), { standalone: 'app', insertGlobalVars })
     .transform('babelify', { presets: ['es2015', 'react'] })
     .transform('bulkify')
     .bundle()
@@ -62,7 +59,7 @@ function clientStream({ config, onBuildFinish }) {
 export function buildClient({ config, onBuildFinish }) {
   ensureTmpPathExists(config);
 
-  browserify(buildClientEntryPoint(config))
+  browserify(buildClientEntryPoint(config), { insertGlobalVars })
     .transform('babelify', { presets: ['es2015', 'react'] })
     .transform('bulkify')
     .bundle()
