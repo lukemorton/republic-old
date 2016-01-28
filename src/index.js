@@ -6,4 +6,4 @@ import Form from './views/form';
 const actions = { form, http, state };
 const views = { Form };
 
-export { actions, client, views };
+export { actions, views };
