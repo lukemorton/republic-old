@@ -1,6 +1,8 @@
 import ReactDOM from 'react-dom';
 import ClientContainer from './containers/client';
+import { createStore } from './store';
 
 export function run({ app }) {
-  ReactDOM.render(ClientContainer({ app }), document.body);
+  const store = createStore();
+  ReactDOM.render(ClientContainer({ app, store }), document.body);
 }
