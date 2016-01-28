@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
-import { buildIndex } from './application';
+import { buildIndex, buildClient } from './application';
 import { loadConfig } from './configuration';
 import { match } from 'react-router';
 import { createStore } from './store';
@@ -10,6 +10,16 @@ import ServerContainer from './containers/server';
 function serveStatic(app, config) {
   if (!config.express.serveStatic) return;
   app.use(express.static(config.app.assetPath));
+}
+
+function serveClient(app, config) {
+  app.get('/assets/javascripts/client.dist.js', function (request, response) {
+    function onBuildFinish(clientPath) {
+      response.sendFile(clientPath);
+    }
+
+    buildClient({ config, onBuildFinish });
+  });
 }
 
 function renderPage(config) {
@@ -41,6 +51,7 @@ function createApp(config) {
   const app = express();
   app.use(morgan('dev'));
   serveStatic(app, config);
+  serveClient(app, config);
   app.use(renderPage(config));
   return app;
 }

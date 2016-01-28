@@ -7,9 +7,14 @@ function initialStateScript(initialState) {
   return <script dangerouslySetInnerHTML={{ __html }} key="initialStateScript"></script>;
 }
 
+function clientScript() {
+  return <script src="/assets/javascripts/client.dist.js"></script>
+}
+
 export default function ({ app, config, store, renderProps }) {
   const Layout = app.app.views.layouts.application.default;
-  const javascripts = [initialStateScript(store.getState())];
+  const javascripts = [initialStateScript(store.getState()),
+                       clientScript()];
 
   return (
     <Provider store={store}>

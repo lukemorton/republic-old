@@ -1,7 +1,7 @@
 import browserify from 'browserify';
 import fs from 'fs';
 
-const browserifyOptions = {
+const indexBrowserifyOptions = {
   standalone: 'app',
   insertGlobalVars: {
     React: function (file, dir) {
@@ -10,30 +10,62 @@ const browserifyOptions = {
   }
 };
 
+function ensureTmpPathExists(config) {
+  if (!fs.existsSync(config.app.tmpPath)) fs.mkdirSync(config.app.tmpPath);
+}
+
 function buildIndexEntryPoint(config) {
   const entryPointPath = config.app.tmpPath + '/index.js';
-  console.log('Writing index to', entryPointPath);
+  console.log('Writing index entry point to', entryPointPath);
   fs.writeFileSync(entryPointPath, `export default require('bulk-require')('${config.app.rootPath}', ['app/views/**/*.jsx', 'config/*.jsx']);`);
   return entryPointPath;
 }
 
-function indexStream({ config, onBuildFinish, url }) {
+function indexStream({ config, onBuildFinish }) {
   const bundlePath = config.app.tmpPath + '/index.dist.js';
-  console.log('Building app index at', config.app.rootPath);
+  console.log('Writing app index to', config.app.rootPath);
 
   return fs.createWriteStream(bundlePath).on('finish', function () {
-    console.log('Finished building app index.');
+    console.log('Finished writing app index.');
     delete require.cache[bundlePath];
     onBuildFinish(require(bundlePath).default);
   });
 }
 
 export function buildIndex({ config, onBuildFinish }) {
-  if (!fs.existsSync(config.app.tmpPath)) fs.mkdirSync(config.app.tmpPath);
+  ensureTmpPathExists(config);
 
-  browserify(buildIndexEntryPoint(config), browserifyOptions)
+  browserify(buildIndexEntryPoint(config), indexBrowserifyOptions)
     .transform('babelify', { presets: ['es2015', 'react'] })
     .transform('bulkify')
     .bundle()
     .pipe(indexStream({ config, onBuildFinish }));
+}
+
+function buildClientEntryPoint(config) {
+  const entryPointPath = config.app.tmpPath + '/client.js';
+  console.log('Writing client entry point to', entryPointPath);
+  fs.writeFileSync(entryPointPath, `require('${__dirname}/client').run({ app: require('./index.js').default })`);
+  return entryPointPath;
+}
+
+function clientStream({ config, onBuildFinish }) {
+  const bundlePath = config.app.tmpPath + '/client.dist.js';
+  console.log('Writing client to', config.app.rootPath);
+
+  return fs.createWriteStream(bundlePath).on('finish', function () {
+    console.log('Finished writting client.');
+    delete require.cache[bundlePath];
+    onBuildFinish(bundlePath);
+  });
+}
+
+export function buildClient({ config, onBuildFinish }) {
+  ensureTmpPathExists(config);
+
+  browserify(buildClientEntryPoint(config))
+    .transform('babelify', { presets: ['es2015', 'react'] })
+    .transform('bulkify')
+    .bundle()
+    .pipe(clientStream({ config, onBuildFinish }));
 }
