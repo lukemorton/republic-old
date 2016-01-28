@@ -22,13 +22,13 @@ function buildIndexEntryPoint(config) {
 }
 
 function indexStream({ config, onBuildFinish }) {
-  const bundlePath = config.app.tmpPath + '/index.dist.js';
+  const indexPath = config.app.tmpPath + '/index.dist.js';
   console.log('Writing app index to', config.app.rootPath);
 
-  return fs.createWriteStream(bundlePath).on('finish', function () {
+  return fs.createWriteStream(indexPath).on('finish', function () {
     console.log('Finished writing app index.');
-    delete require.cache[bundlePath];
-    onBuildFinish(require(bundlePath).default);
+    delete require.cache[indexPath];
+    onBuildFinish(require(indexPath).default);
   });
 }
 
@@ -50,13 +50,13 @@ function buildClientEntryPoint(config) {
 }
 
 function clientStream({ config, onBuildFinish }) {
-  const bundlePath = config.app.tmpPath + '/client.dist.js';
+  const clientPath = config.app.tmpPath + '/client.dist.js';
   console.log('Writing client to', config.app.rootPath);
 
-  return fs.createWriteStream(bundlePath).on('finish', function () {
+  return fs.createWriteStream(clientPath).on('finish', function () {
     console.log('Finished writting client.');
     delete require.cache[bundlePath];
-    onBuildFinish(bundlePath);
+    onBuildFinish(clientPath);
   });
 }
 
