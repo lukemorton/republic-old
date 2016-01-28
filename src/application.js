@@ -55,7 +55,6 @@ function clientStream({ config, onBuildFinish }) {
 
   return fs.createWriteStream(clientPath).on('finish', function () {
     console.log('Finished writting client.');
-    delete require.cache[bundlePath];
     onBuildFinish(clientPath);
   });
 }
