@@ -2,4 +2,4 @@
 
 import { run } from '../server';
 
-run(process.env);
+run({ env: process.env });
