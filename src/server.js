@@ -5,6 +5,7 @@ import { buildIndex, buildClient } from './application';
 import { loadConfig } from './configuration';
 import { match } from 'react-router';
 import { createStore } from './store';
+import { createRoutes } from './routing';
 import ServerContainer from './containers/server';
 
 function serveStatic(app, config) {
@@ -25,7 +26,7 @@ function serveClient(app, config) {
 function renderPage(config) {
   return function (request, response) {
     function onBuildFinish(app) {
-      match({ routes: app.config.routes.default, location: request.url }, (error, redirectLocation, renderProps) => {
+      match({ routes: createRoutes(app), location: request.url }, (error, redirectLocation, renderProps) => {
         if (redirectLocation) {
           response.redirect(redirectLocation.pathname + redirectLocation.search);
         } else if (error) {
