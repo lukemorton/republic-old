@@ -4,6 +4,9 @@ import fs from 'fs';
 const insertGlobalVars = {
   React: function (file, dir) {
     return 'require("react")';
+  },
+  Link: function (file, dir) {
+    return 'require("react-router").Link';
   }
 };
 
