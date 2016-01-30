@@ -8,7 +8,7 @@ function initialStateScript(initialState) {
 }
 
 function clientScript() {
-  return <script src="/assets/javascripts/client.dist.js"></script>
+  return <script src="/assets/javascripts/client.dist.js" key="clientScript"></script>
 }
 
 export default function ({ app, config, store, renderProps }) {
