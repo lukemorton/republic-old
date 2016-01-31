@@ -42,6 +42,11 @@ be adhering to semantic versioning but keep changing APIs in mind.
 
 ## What's working right now
 
+ - Server side rendering
+ - Client side rendering
+ - Basic url => page component routing
+ - Auto execution of action based on routing
+
 You can currently boot up the server from an application. Your application should look like [`examples/`](examples/).
 
 Change into your application directory then run the following:
