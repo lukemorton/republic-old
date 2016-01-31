@@ -1,4 +1,4 @@
 export default [
-  ['/', { page: 'hello#world' }],
+  ['/', { page: 'hello#world', actions: ['loadWorld'] }],
   ['/test', { page: 'hello#test' }]
 ];

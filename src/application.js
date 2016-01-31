@@ -1,5 +1,6 @@
 import browserify from 'browserify';
 import fs from 'fs';
+import path from 'path';
 
 const insertGlobalVars = {
   React: function (file, dir) {
@@ -7,6 +8,11 @@ const insertGlobalVars = {
   },
   Link: function (file, dir) {
     return 'require("react-router").Link';
+  },
+  actions: function (file, dir) {
+    if (path.dirname(file.slice(dir.length)) === '/app/actions') {
+      return `require("${__dirname}/index").default.actions`;
+    }
   }
 };
 
@@ -16,8 +22,10 @@ function ensureTmpPathExists(config) {
 
 function buildIndexEntryPoint(config) {
   const entryPointPath = config.app.tmpPath + '/index.js';
+  const requireGlobs = "['app/actions/*.jsx', 'app/views/**/*.jsx', 'config/*.jsx']";
   console.log('Writing index entry point to', entryPointPath);
-  fs.writeFileSync(entryPointPath, `export default require('bulk-require')('${config.app.rootPath}', ['app/views/**/*.jsx', 'config/*.jsx']);`);
+  fs.writeFileSync(entryPointPath, `export default require('bulk-require')('${config.app.rootPath}', ${requireGlobs});`);
+  console.log('Finished writing index entry point.');
   return entryPointPath;
 }
 
