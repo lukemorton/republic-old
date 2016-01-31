@@ -1,11 +1,15 @@
 import * as Redux from 'redux';
-import merge from 'deepmerge';
+import thunk from 'redux-thunk';
+import merge from 'lodash/merge';
 
-export function createStore(config) {
-  return Redux.createStore(function (state = {}, action) {
-    switch (action.type) {
-      case 'MERGE_STATE': return merge(state, action.state);
-      default: return state;
-    }
-  });
+function stateReducer(state = {}, action) {
+  switch (action.type) {
+    case 'MERGE_STATE': return merge(state, action.state);
+    case 'SET_STATE': return action.state;
+    default: return state;
+  }
+}
+
+export function createStore() {
+  return Redux.applyMiddleware(thunk)(Redux.createStore)(stateReducer, global.__INITIAL_STATE__);
 }

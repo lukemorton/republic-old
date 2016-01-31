@@ -1,7 +1,7 @@
-export default function World() {
+export default function World({ world }) {
   return (
     <div>
-      Hello World
+      Hello World: {world}
       <Link to="/test">Test</Link>
     </div>
   );

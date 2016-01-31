@@ -13,14 +13,14 @@ function clientScript() {
 
 export default function ({ app, config, store, renderProps }) {
   const Layout = app.app.views.layouts.application.default;
-  const javascripts = [initialStateScript(store.getState()),
-                       clientScript()];
 
   return (
     <Provider store={store}>
-      <Layout config={config}
-              javascripts={javascripts}>
+      <Layout config={config}>
         <RoutingContext {...renderProps} />
+
+        {initialStateScript(store.getState())}
+        {clientScript()}
       </Layout>
     </Provider>
   );

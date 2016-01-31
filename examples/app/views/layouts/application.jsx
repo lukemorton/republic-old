@@ -1,9 +1,8 @@
-export default function ({ children, javascripts }) {
+export default function ({ children }) {
   return (
     <html>
       <body>
         {children}
-        {javascripts}
       </body>
     </html>
   );
