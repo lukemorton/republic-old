@@ -56,7 +56,8 @@
       "space-before-function-paren": [
         2,
         {"anonymous": "always", "named": "never"}
-      ]
+      ],
+      "react/prop-types": [0]
     },
     "extends": [
       "standard",
