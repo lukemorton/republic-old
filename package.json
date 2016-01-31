@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/lukemorton/republic#readme",
   "dependencies": {
+    "deepmerge": "^0.2.10",
     "express": "^4.13.4",
     "history": "^1.17.0",
     "react": "^0.14.6",
@@ -55,9 +56,14 @@
       ],
       "space-before-function-paren": [
         2,
-        {"anonymous": "always", "named": "never"}
+        {
+          "anonymous": "always",
+          "named": "never"
+        }
       ],
-      "react/prop-types": [0]
+      "react/prop-types": [
+        0
+      ]
     },
     "extends": [
       "standard",
