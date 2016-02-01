@@ -21,9 +21,9 @@ function createRoute(app, [path, { page, actions }]) {
   const component = pageToComponent(app, page, actions);
 
   if (path === '/') {
-    return React.createElement(IndexRoute, { component });
+    return React.createElement(IndexRoute, { component, key: path });
   } else {
-    return React.createElement(Route, { component, path: path.slice(1) });
+    return React.createElement(Route, { component, path: path.slice(1), key: path });
   }
 }
 
