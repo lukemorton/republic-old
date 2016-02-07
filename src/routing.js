@@ -2,23 +2,26 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { connect } from 'react-redux';
 
-function pageToComponent(app, page, actions = []) {
+function pageToComponent(app, store, page, actions = []) {
   const [module, view] = page.split('#');
   const component = app.app.views[module][view].default;
   const componentActions = actions.map(action => app.app.actions[module][action]);
 
-  return connect(state => state)(React.createClass({
-    componentWillMount: function () {
-      componentActions.map(action => this.props.dispatch(action()));
-    },
-    render: function () {
-      return React.createElement(component, this.props);
+  const connectedComponent = connect(state => state)(function (props) {
+    if (process.browser) {
+      componentActions.map(action => props.dispatch(action(props)));
     }
-  }));
+
+    return React.createElement(component, props);
+  });
+
+  connectedComponent.actions = componentActions;
+
+  return connectedComponent;
 }
 
-function createRoute(app, [path, { page, actions }]) {
-  const component = pageToComponent(app, page, actions);
+function createRoute(app, store, [path, { page, actions }]) {
+  const component = pageToComponent(app, store, page, actions);
 
   if (path === '/') {
     return React.createElement(IndexRoute, { component, key: path });
@@ -27,7 +30,7 @@ function createRoute(app, [path, { page, actions }]) {
   }
 }
 
-export function createRoutes(app) {
-  const routes = app.config.routes.default.map(route => createRoute(app, route));
+export function createRoutes({ app, store }) {
+  const routes = app.config.routes.default.map(route => createRoute(app, store, route));
   return React.createElement(Route, { path: '/' }, routes);
 }

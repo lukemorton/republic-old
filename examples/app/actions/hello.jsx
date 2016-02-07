@@ -6,8 +6,6 @@ export function loadWorld() {
       world = 1;
     }
 
-    console.log('loadWorld');
-
     return { world };
   });
 }

@@ -5,7 +5,7 @@ import { createRoutes } from '../routing';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 export default function ({ app, store }) {
-  const routes = createRoutes(app);
+  const routes = createRoutes({ app, store });
 
   return (
     <Provider store={store}>

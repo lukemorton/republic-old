@@ -4,5 +4,5 @@ import { createStore } from './store';
 
 export function run({ app }) {
   const store = createStore();
-  ReactDOM.render(ClientContainer({ app, store }), document.body);
+  ReactDOM.render(ClientContainer({ app, store }), document.getElementById('republic-app'));
 }

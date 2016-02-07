@@ -26,7 +26,9 @@ function serveClient(app, config) {
 function renderPage(config) {
   return function (request, response) {
     function onBuildFinish(app) {
-      match({ routes: createRoutes(app), location: request.url }, (error, redirectLocation, renderProps) => {
+      const store = createStore();
+
+      match({ routes: createRoutes({ app, store }), location: request.url }, (error, redirectLocation, renderProps) => {
         if (redirectLocation) {
           response.redirect(redirectLocation.pathname + redirectLocation.search);
         } else if (error) {
@@ -37,7 +39,6 @@ function renderPage(config) {
           console.log('no route matched');
           response.status(404).send('Not found');
         } else {
-          const store = createStore();
           response.write('<!DOCTYPE html>');
           renderToStaticMarkup(ServerContainer({ app, config, store, renderProps })).pipe(response);
         }
