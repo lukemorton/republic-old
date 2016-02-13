@@ -1,4 +1,5 @@
 import browserify from 'browserify';
+import watchify from 'watchify';
 import fs from 'fs';
 import path from 'path';
 
@@ -48,6 +49,27 @@ export function buildIndex({ config, onBuildFinish }) {
     .transform('bulkify')
     .bundle()
     .pipe(indexStream({ config, onBuildFinish }));
+}
+
+export function watchIndex({ config, onBuildFinish, onFirstBuildFinish }) {
+  const entries = buildIndexEntryPoint(config);
+  const cache = {};
+  const packageCache = {};
+  const plugin = [watchify];
+
+  ensureTmpPathExists(config);
+
+  let b = browserify({ standalone: 'app',
+                       cache,
+                       entries,
+                       insertGlobalVars,
+                       packageCache,
+                       plugin })
+    .transform('babelify', { presets: ['es2015', 'react'] })
+    .transform('bulkify');
+
+  b.on('update', () => b.bundle().pipe(indexStream({ config, onBuildFinish })));
+  b.bundle().pipe(indexStream({ config, onBuildFinish: onFirstBuildFinish }));
 }
 
 function buildClientEntryPoint(config) {
