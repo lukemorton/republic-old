@@ -1,5 +1,6 @@
 import browserify from 'browserify';
 import watchify from 'watchify';
+import livereactload from 'livereactload';
 import fs from 'fs';
 import path from 'path';
 
@@ -97,4 +98,24 @@ export function buildClient({ config, onBuildFinish }) {
     .transform('bulkify')
     .bundle()
     .pipe(clientStream({ config, onBuildFinish }));
+}
+
+export function watchClient({ config, onBuildFinish }) {
+  const entries = buildClientEntryPoint(config);
+  const cache = {};
+  const packageCache = {};
+  const plugin = [watchify];
+
+  ensureTmpPathExists(config);
+
+  let b = browserify({ cache,
+                       entries,
+                       insertGlobalVars,
+                       packageCache,
+                       plugin })
+    .transform('babelify', { presets: ['es2015', 'react'] })
+    .transform('bulkify');
+
+  b.on('update', () => b.bundle().pipe(clientStream({ config, onBuildFinish })));
+  b.bundle().pipe(clientStream({ config, onBuildFinish }));
 }

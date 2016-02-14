@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
-import { watchIndex, buildClient } from './application';
+import { watchIndex, watchClient } from './application';
 import { loadConfig } from './configuration';
 import { match } from 'react-router';
 import { createStore } from './store';
@@ -15,11 +15,7 @@ function serveStatic(server, config) {
 
 function serveClient(server, config) {
   server.get('/assets/javascripts/client.dist.js', function (request, response) {
-    function onBuildFinish(clientPath) {
-      response.sendFile(clientPath);
-    }
-
-    buildClient({ config, onBuildFinish });
+    response.sendFile(config.app.tmpPath + '/client.dist.js');
   });
 }
 
@@ -75,5 +71,11 @@ export function run({ env }) {
     console.log('');
   }
 
+  function onClientBuildFinish(clientPath) {
+    console.log('client reload');
+    console.log('');
+  }
+
   watchIndex({ config, onFirstBuildFinish, onBuildFinish });
+  watchClient({ config, onBuildFinish: onClientBuildFinish });
 }
