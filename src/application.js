@@ -1,5 +1,6 @@
 import browserify from 'browserify';
 import watchify from 'watchify';
+import livereactload from 'livereactload';
 import fs from 'fs';
 import path from 'path';
 
@@ -103,7 +104,7 @@ export function watchClient({ config, onBuildFinish }) {
   const entries = buildClientEntryPoint(config);
   const cache = {};
   const packageCache = {};
-  const plugin = [watchify];
+  const plugin = [watchify, livereactload];
 
   ensureTmpPathExists(config);
 
