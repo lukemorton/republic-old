@@ -101,12 +101,12 @@ export function buildClient({ config, onBuildFinish }) {
 }
 
 export function watchClient({ config, onBuildFinish }) {
+  ensureTmpPathExists(config);
+
   const entries = buildClientEntryPoint(config);
   const cache = {};
   const packageCache = {};
   const plugin = [watchify, livereactload];
-
-  ensureTmpPathExists(config);
 
   let b = browserify({ cache,
                        entries,
