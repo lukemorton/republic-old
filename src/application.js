@@ -52,12 +52,12 @@ export function buildIndex({ config, onBuildFinish }) {
 }
 
 export function watchIndex({ config, onBuildFinish, onFirstBuildFinish }) {
+  ensureTmpPathExists(config);
+
   const entries = buildIndexEntryPoint(config);
   const cache = {};
   const packageCache = {};
   const plugin = [watchify];
-
-  ensureTmpPathExists(config);
 
   let b = browserify({ standalone: 'app',
                        cache,
