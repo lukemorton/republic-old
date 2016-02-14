@@ -40,12 +40,7 @@ We'd love you to get involved! Check out our [contribution guidelines](docs/cont
 Whilst we're actively developing republic things our bound to change. We will
 be adhering to semantic versioning but keep changing APIs in mind.
 
-## What's working right now
-
- - Server side rendering
- - Client side rendering
- - Basic url => page component routing
- - Auto execution of action based on routing
+## Running example app
 
 You can currently boot up the server from an application. Your application should look like [`examples/`](examples/).
 
@@ -63,3 +58,17 @@ npm install && sudo npm link && republic dev
 ```
 
 This will boot up a server at http://localhost:3000
+
+## Roadmap
+
+ - [x] Server side rendering
+ - [x] Client side rendering
+ - [x] Isomorphic routing with execution of actions based on route match
+ - [x] Server side hot loading (no browser refresh tho)
+ - [] Client side hot loading
+ - [] `republic new` command for new projects
+ - [] Rewrite republic with tests (initial dev was spike)
+ - [] Promo video
+ - [] Implement test runner in `republic dev`
+ - [] Form action and view helpers
+ - [] API actions
