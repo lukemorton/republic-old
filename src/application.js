@@ -1,6 +1,5 @@
 import browserify from 'browserify';
 import watchify from 'watchify';
-import livereactload from 'livereactload';
 import fs from 'fs';
 import path from 'path';
 
