@@ -65,10 +65,10 @@ This will boot up a server at http://localhost:3000
  - [x] Client side rendering
  - [x] Isomorphic routing with execution of actions based on route match
  - [x] Server side hot loading (no browser refresh tho)
- - [] Client side hot loading
- - [] `republic new` command for new projects
- - [] Rewrite republic with tests (initial dev was spike)
- - [] Promo video
- - [] Implement test runner in `republic dev`
- - [] Form action and view helpers
- - [] API actions
+ - [ ] Client side hot loading
+ - [ ] `republic new` command for new projects
+ - [ ] Rewrite republic with tests (initial dev was spike)
+ - [ ] Promo video
+ - [ ] Implement test runner in `republic dev`
+ - [ ] Form action and view helpers
+ - [ ] API actions
