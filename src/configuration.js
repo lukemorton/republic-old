@@ -2,10 +2,10 @@ import path from 'path';
 
 function defaultConfig() {
   const app = {
-    assetsPath: path.join(process.cwd(), '/app/assets/'),
-    tmpPath: path.join(process.cwd(), '/tmp/'),
-    rootPath: path.join(process.cwd(), '/'),
-    viewsPath: path.join(process.cwd(), '/app/views/')
+    assetsPath: path.resolve(process.cwd() + '/app/assets/'),
+    tmpPath: path.resolve(process.cwd() + '/tmp/'),
+    rootPath: path.resolve(process.cwd() + '/'),
+    viewsPath: path.resolve(process.cwd() + '/app/views/')
   };
 
   const express = {
