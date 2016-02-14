@@ -1,5 +1,6 @@
 import browserify from 'browserify';
 import watchify from 'watchify';
+import livereactload from 'livereactload';
 import fs from 'fs';
 import path from 'path';
 
@@ -25,7 +26,8 @@ function buildIndexEntryPoint(config) {
   const entryPointPath = config.app.tmpPath + '/index.js';
   const requireGlobs = "['app/actions/*.jsx', 'app/views/**/*.jsx', 'config/*.jsx']";
   console.log('Writing index entry point to', entryPointPath);
-  fs.writeFileSync(entryPointPath, `export default require('bulk-require')('${config.app.rootPath}', ${requireGlobs});`);
+  fs.writeFileSync(entryPointPath, `module.onReload && module.onReload(() => true);
+export default require('bulk-require')('${config.app.rootPath}', ${requireGlobs});`);
   console.log('Finished writing index entry point.');
   return entryPointPath;
 }
@@ -100,12 +102,12 @@ export function buildClient({ config, onBuildFinish }) {
 }
 
 export function watchClient({ config, onBuildFinish }) {
+  ensureTmpPathExists(config);
+
   const entries = buildClientEntryPoint(config);
   const cache = {};
   const packageCache = {};
-  const plugin = [watchify];
-
-  ensureTmpPathExists(config);
+  const plugin = [watchify, livereactload];
 
   let b = browserify({ cache,
                        entries,
