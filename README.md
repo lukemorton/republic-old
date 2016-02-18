@@ -7,7 +7,7 @@
 
 ## Goals
 
-Republic was built to provide guidance and productivity to JavaScript developers. Frontend development is an exciting place at the moment and there are many opinions and libraries, Republic brings particularly good ones together for you to:
+Republic was built to provide guidance and productivity to JavaScript developers. Frontend development is an exciting place at the moment and there are many opinions and libraries, Republic brings particularly good ones together in order to:
 
 - Make developers more productive
 - Welcome newcomers with structure and consistency
