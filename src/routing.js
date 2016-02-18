@@ -2,10 +2,18 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { connect } from 'react-redux';
 
+function actionFn(app, module, action) {
+  if (app.app.actions && app.app.actions[module] && app.app.actions[module][action]) {
+    return app.app.actions[module][action];
+  } else {
+    throw new Error('Action not found');
+  }
+}
+
 function pageToComponent(app, store, page, actions = []) {
   const [module, view] = page.split('#');
   const component = app.app.views[module][view].default;
-  const componentActions = actions.map(action => app.app.actions[module][action]);
+  const componentActions = actions.map(actionFn.bind(this, app, module));
 
   const connectedComponent = connect(state => state)(function (props) {
     if (process.browser) {
