@@ -30,7 +30,7 @@ describe('Routing', function () {
       context('and the actions do not exist', function () {
         const app = appTreeWithActions({});
 
-        it('should create react routes', function () {
+        it('raise error regarding action not found', function () {
           expect(createRoutes.bind(this, { app })).to.throw('Action not found');
         });
       });
