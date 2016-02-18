@@ -70,5 +70,6 @@ This will boot up a server at http://localhost:3000
  - [ ] Rewrite republic with tests (initial dev was spike)
  - [ ] Promo video
  - [ ] Implement test runner in `republic dev`
+ - [ ] `republic generate` command for new projects
  - [ ] Form action and view helpers
  - [ ] API actions
