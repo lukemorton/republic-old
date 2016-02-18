@@ -4,9 +4,8 @@ import { Route } from 'react-router';
 describe('Routing', function () {
   context('when creating routes', function () {
     context('and the routes no not have actions', function () {
-      const config = { routes: { default: [['/', { page: 'hello#world', actions: [] }]] } };
-      const views = { hello: { world: { default: {} } } };
-      const app = { app: { views }, config };
+      const app = appTree({ routes: [['/', { page: 'hello#world', actions: [] }]],
+                            views: { hello: { world: { default: {} } } } });
 
       it('should create react routes', function () {
         expect(isElementOfType(createRoutes({ app }), Route)).to.be.true;
@@ -14,12 +13,14 @@ describe('Routing', function () {
     });
 
     context('and the routes have actions', function () {
-      const config = { routes: { default: [['/', { page: 'hello#world', actions: ['loadWorld'] }]] } };
+      function appTreeWithActions(actions) {
+        return appTree({ actions,
+                         routes: [['/', { page: 'hello#world', actions: ['loadWorld'] }]],
+                         views: { hello: { world: { default: {} } } } });
+      }
 
       context('and the actions exist', function () {
-        const actions = { hello: { loadWorld: function () {} } };
-        const views = { hello: { world: { default: {} } } };
-        const app = { app: { actions, views }, config };
+        const app = appTreeWithActions({ hello: { loadWorld: function () {} } });
 
         it('should create react routes', function () {
           expect(isElementOfType(createRoutes({ app }), Route)).to.be.true;
@@ -27,8 +28,7 @@ describe('Routing', function () {
       });
 
       context('and the actions do not exist', function () {
-        const views = { hello: { world: { default: {} } } };
-        const app = { app: { views }, config };
+        const app = appTreeWithActions({});
 
         it('should create react routes', function () {
           expect(createRoutes.bind(this, { app })).to.throw('Action not found');
