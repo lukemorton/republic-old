@@ -29,7 +29,7 @@ describe('Components', function () {
 
       it('should wrap component with layout', function () {
         const component = pageToComponent({ app, page: 'hello#world', actions: [] });
-        const wrapper = render(createElement(component, { store: mockStore() }));
+        const wrapper = render(React.createElement(component, { store: mockStore() }));
         expect(wrapper.find('.layout')).to.have.length(1);
       });
     });

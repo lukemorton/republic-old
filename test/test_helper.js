@@ -8,7 +8,6 @@ global.expect = expect;
 global.isElementOfType = ReactTestUtils.isElementOfType;
 global.shallow = shallow;
 global.render = render;
-global.createElement = React.createElement;
 
 global.appTree = function ({ actions = {}, routes, views }) {
   const config = { routes: { default: routes } };
