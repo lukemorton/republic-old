@@ -29,7 +29,7 @@ function clientScript() {
 }
 
 export default function ({ app, store, renderProps }) {
-  const Layout = app.app.views.layouts.application.default;
+  const Layout = app.app.views.layouts.server.default;
   const __html = appHtml(store, renderProps);
 
   return (

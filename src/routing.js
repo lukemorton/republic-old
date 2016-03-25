@@ -14,13 +14,14 @@ function pageToComponent(app, store, page, actions = []) {
   const [module, view] = page.split('#');
   const component = app.app.views[module][view].default;
   const componentActions = actions.map(actionFn.bind(this, app, module));
+  const Layout = app.app.views.layouts.application.default;
 
   const connectedComponent = connect(state => state)(function (props) {
     if (process.browser) {
       componentActions.map(action => props.dispatch(action(props)));
     }
 
-    return React.createElement(component, props);
+    return React.createElement(Layout, props, React.createElement(component, props));
   });
 
   connectedComponent.actions = componentActions;
