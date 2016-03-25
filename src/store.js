@@ -5,7 +5,6 @@ import merge from 'lodash/merge';
 function stateReducer(state = {}, action) {
   switch (action.type) {
     case 'MERGE_STATE': return merge(state, action.state);
-    case 'SET_STATE': return action.state;
     default: return state;
   }
 }

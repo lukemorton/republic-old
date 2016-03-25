@@ -1,7 +1,7 @@
 export default class ApplicationLayout extends React.Component {
   render() {
     return (
-      <div>
+      <div className="app">
         <header>
           <Link to="/">Brand</Link>
         </header>
