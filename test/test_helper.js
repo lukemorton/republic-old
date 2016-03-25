@@ -1,9 +1,16 @@
 import { expect } from 'chai';
-import { isElementOfType } from 'react-addons-test-utils';
+import ReactTestUtils from 'react-addons-test-utils';
+import React from 'react';
+import { render, shallow } from 'enzyme';
 
+global.React = React;
 global.expect = expect;
-global.isElementOfType = isElementOfType;
+global.isElementOfType = ReactTestUtils.isElementOfType;
+global.shallow = shallow;
+global.render = render;
+global.createElement = React.createElement;
+
 global.appTree = function ({ actions = {}, routes, views }) {
-    const config = { routes: { default: routes } };
-    return { app: { actions, views }, config };
-}
+  const config = { routes: { default: routes } };
+  return { app: { actions, views }, config };
+};
