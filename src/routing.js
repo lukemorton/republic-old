@@ -10,18 +10,26 @@ function actionFn(app, module, action) {
   }
 }
 
+function wrapInLayout(app, props, component) {
+  if (app.app.views.layouts && app.app.views.layouts.application) {
+    const Layout = app.app.views.layouts.application.default;
+    return React.createElement(Layout, props, component);
+  } else {
+    return component;
+  }
+}
+
 function pageToComponent(app, store, page, actions = []) {
   const [module, view] = page.split('#');
   const component = app.app.views[module][view].default;
   const componentActions = actions.map(actionFn.bind(this, app, module));
-  const Layout = app.app.views.layouts.application.default;
 
   const connectedComponent = connect(state => state)(function (props) {
     if (process.browser) {
       componentActions.map(action => props.dispatch(action(props)));
     }
 
-    return React.createElement(Layout, props, React.createElement(component, props));
+    return wrapInLayout(app, props, React.createElement(component, props));
   });
 
   connectedComponent.actions = componentActions;
