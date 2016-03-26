@@ -7,11 +7,11 @@ describe('Server', function () {
       const env = 'test';
       const rootDir = 'examples';
 
-      function onStart(app) {
+      function assertIndexReturns200(app) {
         request(app).get('/').expect(200, done);
       }
 
-      run({ env, onStart, rootDir });
+      run({ env, rootDir, onStart: assertIndexReturns200 });
     });
   });
 });
