@@ -1,6 +1,6 @@
 global.buildContainer = function ({ actions = {}, routes, views }) {
   const config = { routes: { default: routes } };
-  return { app: { app: { actions, views }, config } };
+  return { appTree: { app: { actions, views }, config } };
 };
 
 const exampleContainerTree = { routes: [['/', { page: 'hello#world' }]],

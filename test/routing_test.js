@@ -4,11 +4,11 @@ import { Route } from 'react-router';
 describe('Routing', function () {
   context('when creating routes', function () {
     context('and the routes no not have actions', function () {
-      const { app } = buildContainer({ routes: [['/', { page: 'hello#world', actions: [] }]],
-                                       views: { hello: { world: { default: {} } } } });
+      const { appTree } = buildContainer({ routes: [['/', { page: 'hello#world', actions: [] }]],
+                                           views: { hello: { world: { default: {} } } } });
 
       it('should create react routes', function () {
-        expect(isElementOfType(createRoutes({ app }), Route)).to.be.true;
+        expect(isElementOfType(createRoutes({ appTree }), Route)).to.be.true;
       });
     });
 
@@ -20,18 +20,18 @@ describe('Routing', function () {
       }
 
       context('and the actions exist', function () {
-        const { app } = containerWithActions({ hello: { loadWorld: function () {} } });
+        const { appTree } = containerWithActions({ hello: { loadWorld: function () {} } });
 
         it('should create react routes', function () {
-          expect(isElementOfType(createRoutes({ app }), Route)).to.be.true;
+          expect(isElementOfType(createRoutes({ appTree }), Route)).to.be.true;
         });
       });
 
       context('and the actions do not exist', function () {
-        const { app } = containerWithActions({});
+        const { appTree } = containerWithActions({});
 
         it('raise error regarding action not found', function () {
-          expect(createRoutes.bind(this, { app })).to.throw('Action not found');
+          expect(createRoutes.bind(this, { appTree })).to.throw('Action not found');
         });
       });
     });

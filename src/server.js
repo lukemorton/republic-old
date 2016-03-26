@@ -21,10 +21,10 @@ function serveClient(server, config) {
 
 function renderPage(dependencyContainer, config) {
   return function (request, response) {
-    const { app } = dependencyContainer;
+    const { appTree } = dependencyContainer;
     const store = createStore();
 
-    match({ routes: createRoutes({ app, store }), location: request.url }, (error, redirectLocation, renderProps) => {
+    match({ routes: createRoutes({ appTree, store }), location: request.url }, (error, redirectLocation, renderProps) => {
       if (redirectLocation) {
         response.redirect(redirectLocation.pathname + redirectLocation.search);
       } else if (error) {
@@ -36,7 +36,7 @@ function renderPage(dependencyContainer, config) {
         response.status(404).send('Not found');
       } else {
         response.write('<!DOCTYPE html>');
-        renderToStaticMarkup(ServerContainer({ app, config, store, renderProps })).pipe(response);
+        renderToStaticMarkup(ServerContainer({ appTree, config, store, renderProps })).pipe(response);
       }
     });
   };
@@ -57,8 +57,8 @@ export function run({ env, onStart, rootDir }) {
   console.log('');
   console.log('It all started when they descended to the Piraeus...');
 
-  function onFirstBuildFinish(app) {
-    dependencyContainer.app = app;
+  function onFirstBuildFinish(appTree) {
+    dependencyContainer.appTree = appTree;
     const server = createServer({ config, dependencyContainer });
     server.listen(config.port, function () {
       console.log(`on port ${config.port}`);
@@ -67,8 +67,8 @@ export function run({ env, onStart, rootDir }) {
     });
   }
 
-  function onBuildFinish(app) {
-    dependencyContainer.app = app;
+  function onBuildFinish(appTree) {
+    dependencyContainer.appTree = appTree;
     console.log('reload');
     console.log('');
   }

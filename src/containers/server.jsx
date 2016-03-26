@@ -28,8 +28,8 @@ function clientScript() {
   return <script src="/assets/javascripts/client.dist.js" key="clientScript"></script>;
 }
 
-export default function ({ app, store, renderProps }) {
-  const Layout = app.app.views.layouts.server.default;
+export default function ({ appTree, store, renderProps }) {
+  const Layout = appTree.app.views.layouts.server.default;
   const __html = appHtml(store, renderProps);
 
   return (

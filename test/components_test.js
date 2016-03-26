@@ -5,8 +5,8 @@ import configureMockStore from 'redux-mock-store';
 describe('Components', function () {
   context('when converting page to component', function () {
     it('should return connected component', function () {
-      const { app } = buildContainer({ views: { hello: { world: { default: {} } } } });
-      const component = pageToComponent({ app, page: 'hello#world', actions: [] });
+      const { appTree } = buildContainer({ views: { hello: { world: { default: {} } } } });
+      const component = pageToComponent({ appTree, page: 'hello#world', actions: [] });
       expect(component.displayName).to.equal('Connect(Component)');
     });
 
@@ -14,8 +14,8 @@ describe('Components', function () {
       const mockStore = configureMockStore([]);
 
       it('should wrap component with layout', function () {
-        const { app } = exampleContainer;
-        const component = pageToComponent({ app, page: 'hello#world', actions: [] });
+        const { appTree } = exampleContainer;
+        const component = pageToComponent({ appTree, page: 'hello#world', actions: [] });
         const wrapper = render(React.createElement(component, { store: mockStore() }));
         expect(wrapper.find('.layout')).to.have.length(1);
       });

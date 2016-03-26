@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { pageToComponent } from './components';
 
-function createRoute(app, [path, { page, actions }]) {
-  const component = pageToComponent({ app, page, actions });
+function createRoute(appTree, [path, { page, actions }]) {
+  const component = pageToComponent({ appTree, page, actions });
 
   if (path === '/') {
     return React.createElement(IndexRoute, { component, key: path });
@@ -12,7 +12,7 @@ function createRoute(app, [path, { page, actions }]) {
   }
 }
 
-export function createRoutes({ app }) {
-  const routes = app.config.routes.default.map(route => createRoute(app, route));
+export function createRoutes({ appTree }) {
+  const routes = appTree.config.routes.default.map(route => createRoute(appTree, route));
   return React.createElement(Route, { path: '/' }, routes);
 }
