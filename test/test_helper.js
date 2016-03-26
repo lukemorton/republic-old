@@ -1,39 +1,22 @@
-import { expect } from 'chai';
-import ReactTestUtils from 'react-addons-test-utils';
-import React from 'react';
-import { render, shallow } from 'enzyme';
-import request from 'supertest';
+// Load test support
+//
+import './support/components';
+import './support/dependency_container';
 
-global.React = React;
+// Expose test helpers as globals
+//
+import { expect } from 'chai';
 global.expect = expect;
+
+import React from 'react';
+global.React = React;
+
+import ReactTestUtils from 'react-addons-test-utils';
 global.isElementOfType = ReactTestUtils.isElementOfType;
+
+import { render, shallow } from 'enzyme';
 global.shallow = shallow;
 global.render = render;
+
+import request from 'supertest';
 global.request = request;
-
-global.appTree = function ({ actions = {}, routes, views }) {
-  const config = { routes: { default: routes } };
-  return { app: { actions, views }, config };
-};
-
-class Element extends React.Component {
-  render() {
-    return React.DOM.div();
-  }
-}
-
-class ApplicationLayout extends React.Component {
-  render() {
-    return React.DOM.div({ className: 'layout' }, this.props.children);
-  }
-}
-
-class ServerLayout extends React.Component {
-  render() {
-    return React.DOM.html({}, React.DOM.body({}, this.props.children));
-  }
-}
-
-global.Element = Element;
-global.ApplicationLayout = ApplicationLayout;
-global.ServerLayout = ServerLayout;
