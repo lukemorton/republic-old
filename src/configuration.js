@@ -1,6 +1,6 @@
 import path from 'path';
 
-function defaultConfig(rootDir = process.cwd()) {
+function defaultConfig(env, rootDir = process.cwd()) {
   const app = {
     assetsPath: path.resolve(rootDir + '/app/assets/'),
     tmpPath: path.resolve(rootDir + '/tmp/'),
@@ -12,9 +12,9 @@ function defaultConfig(rootDir = process.cwd()) {
     serveStatic: false
   };
 
-  return { port: 3000, app, express };
+  return { port: 3000, app, env, express };
 }
 
 export function loadConfig({ env, rootDir }) {
-  return defaultConfig(rootDir);
+  return defaultConfig(env, rootDir);
 }

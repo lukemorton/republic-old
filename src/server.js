@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
 import { watchIndex, watchClient } from './application';
 import { loadConfig } from './configuration';
+import { loadLogger } from './logger';
 import { match } from 'react-router';
 import { createStore } from './store';
 import { createRoutes } from './routing';
@@ -44,7 +45,7 @@ function renderPage(dependencyContainer, config) {
 
 export function createServer({ dependencyContainer, config }) {
   const server = express();
-  server.use(morgan('dev'));
+  server.use(loadLogger({ config }));
   serveStatic(server, config);
   serveClient(server, config);
   server.use(renderPage(dependencyContainer, config));
