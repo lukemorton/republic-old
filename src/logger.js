@@ -1,6 +1,6 @@
 import morgan from 'morgan';
 
-export function loadLogger({ config }) {
+export function createServerLogger({ config }) {
   switch (config.env) {
     case 'development':
       return morgan('dev');
