@@ -106,6 +106,7 @@
   },
   "devDependencies": {
     "enzyme": "^2.2.0",
-    "redux-mock-store": "^1.0.2"
+    "redux-mock-store": "^1.0.2",
+    "supertest": "^1.2.0"
   }
 }

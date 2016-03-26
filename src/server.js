@@ -51,17 +51,19 @@ function createServer(dependencyContainer, config) {
   return server;
 }
 
-export function run({ env }) {
-  const config = loadConfig(env);
+export function run({ env, onStart, rootDir }) {
+  const config = loadConfig({ env, rootDir });
   let dependencyContainer = {};
   console.log('');
   console.log('It all started when they descended to the Piraeus...');
 
   function onFirstBuildFinish(app) {
     dependencyContainer.app = app;
-    createServer(dependencyContainer, config).listen(config.port, function () {
+    const server = createServer(dependencyContainer, config);
+    server.listen(config.port, function () {
       console.log(`on port ${config.port}`);
       console.log('');
+      if (onStart) onStart(server);
     });
   }
 

@@ -1,11 +1,11 @@
 import path from 'path';
 
-function defaultConfig() {
+function defaultConfig(rootDir = process.cwd()) {
   const app = {
-    assetsPath: path.resolve(process.cwd() + '/app/assets/'),
-    tmpPath: path.resolve(process.cwd() + '/tmp/'),
-    rootPath: path.resolve(process.cwd() + '/'),
-    viewsPath: path.resolve(process.cwd() + '/app/views/')
+    assetsPath: path.resolve(rootDir + '/app/assets/'),
+    tmpPath: path.resolve(rootDir + '/tmp/'),
+    rootPath: path.resolve(rootDir + '/'),
+    viewsPath: path.resolve(rootDir + '/app/views/')
   };
 
   const express = {
@@ -15,6 +15,6 @@ function defaultConfig() {
   return { port: 3000, app, express };
 }
 
-export function loadConfig(env) {
-  return defaultConfig();
+export function loadConfig({ env, rootDir }) {
+  return defaultConfig(rootDir);
 }

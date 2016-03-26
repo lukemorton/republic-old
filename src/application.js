@@ -12,7 +12,7 @@ const insertGlobalVars = {
     return 'require("react-router").Link';
   },
   actions: function (file, dir) {
-    if (path.dirname(file.slice(dir.length)) === '/app/actions') {
+    if (path.dirname(file).endsWith('/app/actions')) {
       return `require("${__dirname}/index").default.actions`;
     }
   }
