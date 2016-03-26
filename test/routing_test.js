@@ -4,10 +4,8 @@ import { Route } from 'react-router';
 describe('Routing', function () {
   context('when creating routes', function () {
     context('and the routes no not have actions', function () {
-      const { appTree } = buildContainer({ routes: [['/', { page: 'hello#world', actions: [] }]],
-                                           views: { hello: { world: { default: {} } } } });
-
       it('should create react routes', function () {
+        const { appTree } = exampleContainer;
         expect(isElementOfType(createRoutes({ appTree }), Route)).to.be.true;
       });
     });
