@@ -1,5 +1,4 @@
 import express from 'express';
-import morgan from 'morgan';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
 import { watchIndex, watchClient } from './application';
 import { loadConfig } from './configuration';
