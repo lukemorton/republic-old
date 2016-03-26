@@ -2,7 +2,7 @@ import express from 'express';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
 import { watchIndex, watchClient } from './application';
 import { loadConfig } from './configuration';
-import { createServerLogger } from './logger';
+import { createServerLogger } from './logging';
 import { match } from 'react-router';
 import { createStore } from './store';
 import { createRoutes } from './routing';
