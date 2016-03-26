@@ -42,7 +42,7 @@ function renderPage(dependencyContainer, config) {
   };
 }
 
-function createServer(dependencyContainer, config) {
+export function createServer({ dependencyContainer, config }) {
   const server = express();
   server.use(morgan('dev'));
   serveStatic(server, config);
@@ -59,7 +59,7 @@ export function run({ env, onStart, rootDir }) {
 
   function onFirstBuildFinish(app) {
     dependencyContainer.app = app;
-    const server = createServer(dependencyContainer, config);
+    const server = createServer({ config, dependencyContainer });
     server.listen(config.port, function () {
       console.log(`on port ${config.port}`);
       console.log('');

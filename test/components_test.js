@@ -12,20 +12,8 @@ describe('Components', function () {
     });
 
     context('and a layout is specified', function () {
-      class Element extends React.Component {
-        render() {
-          return React.DOM.div();
-        }
-      }
-
-      class Layout extends React.Component {
-        render() {
-          return React.DOM.div({ className: 'layout' }, this.props.children);
-        }
-      }
-
       const app = appTree({ views: { hello: { world: { default: Element } },
-                                     layouts: { application: { default: Layout } } } });
+                                     layouts: { application: { default: ApplicationLayout } } } });
 
       it('should wrap component with layout', function () {
         const component = pageToComponent({ app, page: 'hello#world', actions: [] });
