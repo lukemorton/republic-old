@@ -56,7 +56,7 @@ republic new example-app
 ```
 
 This command will create a new directory `example-app/`, copy an example app
-into it and then installed dependencies.
+into it and then install dependencies.
 
 Now you're ready to boot the application:
 
