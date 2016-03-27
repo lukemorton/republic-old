@@ -4,8 +4,8 @@ import { Router } from 'react-router';
 import { createRoutes } from '../routing';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 
-export default function ({ app, store }) {
-  const routes = createRoutes({ app, store });
+export default function ({ appTree, store }) {
+  const routes = createRoutes({ appTree, store });
 
   return (
     <Provider store={store}>
