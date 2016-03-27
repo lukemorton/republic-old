@@ -40,7 +40,30 @@ We'd love you to get involved! Check out our [contribution guidelines](docs/cont
 Whilst we're actively developing republic things our bound to change. We will
 be adhering to semantic versioning but keep changing APIs in mind.
 
-## Running example app
+## Getting Started
+
+To get started you'll first want to install republic globally:
+
+```
+npm install -g republic
+```
+
+Once republic is installed you can now generate an example application with the
+following command:
+
+```
+republic new example-app
+```
+
+This command will create a new directory `example-app/`, copy an example app
+into it and then installed dependencies.
+
+Now you're ready to boot the application:
+
+```
+cd example-app
+republic dev
+```
 
 You can currently boot up the server from an application. Your application should look like [`examples/`](examples/).
 
@@ -51,13 +74,7 @@ npm install -g republic
 republic dev
 ```
 
-If you have cloned this repository and are working on it you may instead want to:
-
-```
-npm install && sudo npm link && republic dev
-```
-
-This will boot up a server at http://localhost:3000
+This will boot up a server at [http://localhost:3000](http://localhost:3000).
 
 ## Roadmap
 
@@ -66,7 +83,7 @@ This will boot up a server at http://localhost:3000
  - [x] Isomorphic routing with execution of actions based on route match
  - [x] Server side hot loading (no browser refresh tho)
  - [x] Client side hot loading of views extending React.Component
- - [ ] `republic new` command for new projects
+ - [x] `republic new` command for new projects
  - [ ] Promo video
  - [ ] Rewrite republic with tests (initial dev was spike)
  - [ ] Implement test runner in `republic dev`
