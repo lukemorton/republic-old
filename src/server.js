@@ -61,7 +61,7 @@ export function run({ env, onStart, rootDir }) {
   function onFirstBuildFinish(appTree) {
     dependencyContainer.appTree = appTree;
 
-    const server = createServer({ config, dependencyContainer });
+    const server = createServer({ config, dependencyContainer, logger });
 
     server.listen(config.port, function () {
       logger.info(`on port ${config.port}`);
