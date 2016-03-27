@@ -64,7 +64,7 @@ export function run({ env, onStart, rootDir }) {
     const server = createServer({ config, dependencyContainer, logger });
 
     server.listen(config.port, function () {
-      logger.info(`on port ${config.port}`);
+      logger.info(`server[port]: ${config.port}`);
       logger.info('server[code]: loaded');
       if (onStart) onStart(server);
     });
