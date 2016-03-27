@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "bin": {
     "republic": "lib/cli/index.js",
-    "republic-dev": "lib/cli/dev.js"
+    "republic-dev": "lib/cli/dev.js",
+    "republic-new": "lib/cli/new.js"
   },
   "scripts": {
     "build": "babel src --out-dir lib",
