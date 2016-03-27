@@ -77,7 +77,7 @@ export function watchIndex({ config, logger, onBuildFinish, onFirstBuildFinish }
 function buildClientEntryPoint(config, logger) {
   const entryPointPath = config.app.tmpPath + '/client.js';
   logger.verbose('Writing client entry point to', entryPointPath);
-  fs.writeFileSync(entryPointPath, `require('${__dirname}/client').run({ app: require('./index.js').default })`);
+  fs.writeFileSync(entryPointPath, `require('${__dirname}/client').run({ appTree: require('./index.js').default })`);
   return entryPointPath;
 }
 
