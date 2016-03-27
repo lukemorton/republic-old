@@ -14,4 +14,4 @@ if (program.verbose) {
   process.env.VERBOSE = program.verbose;
 }
 
-run({ env: process.env });
+run({ env: process.env.NODE_ENV });
