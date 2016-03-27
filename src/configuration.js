@@ -1,5 +1,17 @@
 import path from 'path';
 
+function loggerLevel() {
+  const verbosity = parseInt(process.env.VERBOSE, 10);
+
+  if (verbosity >= 2) {
+    return 'debug';
+  } else if (verbosity >= 1) {
+    return 'verbose';
+  } else {
+    return 'info';
+  }
+}
+
 function defaultConfig(env, rootDir = process.cwd()) {
   const app = {
     assetsPath: path.resolve(rootDir + '/app/assets/'),
@@ -12,7 +24,11 @@ function defaultConfig(env, rootDir = process.cwd()) {
     serveStatic: false
   };
 
-  return { port: 3000, app, env, express };
+  const logger = {
+    level: loggerLevel()
+  };
+
+  return { port: 3000, app, env, express, logger };
 }
 
 export function loadConfig({ env, rootDir }) {

@@ -22,41 +22,41 @@ function ensureTmpPathExists(config) {
   if (!fs.existsSync(config.app.tmpPath)) fs.mkdirSync(config.app.tmpPath);
 }
 
-function buildIndexEntryPoint(config) {
+function buildIndexEntryPoint(config, logger) {
   const entryPointPath = config.app.tmpPath + '/index.js';
   const requireGlobs = "['app/actions/*.jsx', 'app/views/**/*.jsx', 'config/*.jsx']";
-  console.log('Writing index entry point to', entryPointPath);
+  logger.verbose('Writing index entry point to', entryPointPath);
   fs.writeFileSync(entryPointPath, `module.onReload && module.onReload(() => true);
 export default require('bulk-require')('${config.app.rootPath}', ${requireGlobs});`);
-  console.log('Finished writing index entry point.');
+  logger.verbose('Finished writing index entry point.');
   return entryPointPath;
 }
 
-function indexStream({ config, onBuildFinish }) {
+function indexStream({ config, logger, onBuildFinish }) {
   const indexPath = config.app.tmpPath + '/index.dist.js';
-  console.log('Writing app index to', config.app.rootPath);
+  logger.verbose('Writing app index to', config.app.rootPath);
 
   return fs.createWriteStream(indexPath).on('finish', function () {
-    console.log('Finished writing app index.');
+    logger.verbose('Finished writing app index.');
     delete require.cache[indexPath];
     onBuildFinish(require(indexPath).default);
   });
 }
 
-export function buildIndex({ config, onBuildFinish }) {
+export function buildIndex({ config, logger, onBuildFinish }) {
   ensureTmpPathExists(config);
 
-  browserify(buildIndexEntryPoint(config), { standalone: 'app', insertGlobalVars })
+  browserify(buildIndexEntryPoint(config, logger), { standalone: 'app', insertGlobalVars })
     .transform('babelify', { presets: ['es2015', 'react'] })
     .transform('bulkify')
     .bundle()
-    .pipe(indexStream({ config, onBuildFinish }));
+    .pipe(indexStream({ config, logger, onBuildFinish }));
 }
 
-export function watchIndex({ config, onBuildFinish, onFirstBuildFinish }) {
+export function watchIndex({ config, logger, onBuildFinish, onFirstBuildFinish }) {
   ensureTmpPathExists(config);
 
-  const entries = buildIndexEntryPoint(config);
+  const entries = buildIndexEntryPoint(config, logger);
   const cache = {};
   const packageCache = {};
   const plugin = [watchify];
@@ -70,41 +70,41 @@ export function watchIndex({ config, onBuildFinish, onFirstBuildFinish }) {
     .transform('babelify', { presets: ['es2015', 'react'] })
     .transform('bulkify');
 
-  b.on('update', () => b.bundle().pipe(indexStream({ config, onBuildFinish })));
-  b.bundle().pipe(indexStream({ config, onBuildFinish: onFirstBuildFinish }));
+  b.on('update', () => b.bundle().pipe(indexStream({ config, logger, onBuildFinish })));
+  b.bundle().pipe(indexStream({ config, logger, onBuildFinish: onFirstBuildFinish }));
 }
 
-function buildClientEntryPoint(config) {
+function buildClientEntryPoint(config, logger) {
   const entryPointPath = config.app.tmpPath + '/client.js';
-  console.log('Writing client entry point to', entryPointPath);
+  logger.verbose('Writing client entry point to', entryPointPath);
   fs.writeFileSync(entryPointPath, `require('${__dirname}/client').run({ app: require('./index.js').default })`);
   return entryPointPath;
 }
 
-function clientStream({ config, onBuildFinish }) {
+function clientStream({ config, logger, onBuildFinish }) {
   const clientPath = config.app.tmpPath + '/client.dist.js';
-  console.log('Writing client to', config.app.rootPath);
+  logger.verbose('Writing client to', config.app.rootPath);
 
   return fs.createWriteStream(clientPath).on('finish', function () {
-    console.log('Finished writting client.');
+    logger.verbose('Finished writting client.');
     onBuildFinish(clientPath);
   });
 }
 
-export function buildClient({ config, onBuildFinish }) {
+export function buildClient({ config, logger, onBuildFinish }) {
   ensureTmpPathExists(config);
 
-  browserify(buildClientEntryPoint(config), { insertGlobalVars })
+  browserify(buildClientEntryPoint(config, logger), { insertGlobalVars })
     .transform('babelify', { presets: ['es2015', 'react'] })
     .transform('bulkify')
     .bundle()
-    .pipe(clientStream({ config, onBuildFinish }));
+    .pipe(clientStream({ config, logger, onBuildFinish }));
 }
 
-export function watchClient({ config, onBuildFinish }) {
+export function watchClient({ config, logger, onBuildFinish }) {
   ensureTmpPathExists(config);
 
-  const entries = buildClientEntryPoint(config);
+  const entries = buildClientEntryPoint(config, logger);
   const cache = {};
   const packageCache = {};
   const plugin = [watchify, livereactload];
@@ -117,6 +117,6 @@ export function watchClient({ config, onBuildFinish }) {
     .transform('babelify', { presets: ['es2015', 'react'] })
     .transform('bulkify');
 
-  b.on('update', () => b.bundle().pipe(clientStream({ config, onBuildFinish })));
-  b.bundle().pipe(clientStream({ config, onBuildFinish }));
+  b.on('update', () => b.bundle().pipe(clientStream({ config, logger, onBuildFinish })));
+  b.bundle().pipe(clientStream({ config, logger, onBuildFinish }));
 }

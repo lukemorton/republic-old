@@ -1,4 +1,5 @@
 import morgan from 'morgan';
+import winston from 'winston';
 
 export function createServerLogger({ config }) {
   switch (config.env) {
@@ -9,4 +10,11 @@ export function createServerLogger({ config }) {
     default:
       return morgan('combined');
   }
+}
+
+export function createLogger({ config }) {
+  const logger = winston.cli();
+  logger.setLevels(winston.config.npm.levels);
+  logger.level = config.logger.level || 'info';
+  return logger;
 }

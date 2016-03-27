@@ -2,7 +2,7 @@ import express from 'express';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
 import { watchIndex, watchClient } from './application';
 import { loadConfig } from './configuration';
-import { createServerLogger } from './logging';
+import { createLogger, createServerLogger } from './logging';
 import { match } from 'react-router';
 import { createStore } from './store';
 import { createRoutes } from './routing';
@@ -19,7 +19,7 @@ function serveClient(server, config) {
   });
 }
 
-function renderPage(dependencyContainer, config) {
+function renderPage(config, dependencyContainer, logger) {
   return function (request, response) {
     const { appTree } = dependencyContainer;
     const store = createStore();
@@ -28,11 +28,11 @@ function renderPage(dependencyContainer, config) {
       if (redirectLocation) {
         response.redirect(redirectLocation.pathname + redirectLocation.search);
       } else if (error) {
-        console.log('error:', error);
-        console.log('redirectLocation:', redirectLocation);
+        logger.info('error:', error);
+        logger.info('redirectLocation:', redirectLocation);
         response.status(500).send(error.message);
       } else if (!renderProps) {
-        console.log('no route matched');
+        logger.info('no route matched');
         response.status(404).send('Not found');
       } else {
         response.write('<!DOCTYPE html>');
@@ -42,42 +42,43 @@ function renderPage(dependencyContainer, config) {
   };
 }
 
-export function createServer({ dependencyContainer, config }) {
+export function createServer({ config, dependencyContainer, logger }) {
   const server = express();
   server.use(createServerLogger({ config }));
   serveStatic(server, config);
   serveClient(server, config);
-  server.use(renderPage(dependencyContainer, config));
+  server.use(renderPage(config, dependencyContainer, logger));
   return server;
 }
 
 export function run({ env, onStart, rootDir }) {
   const config = loadConfig({ env, rootDir });
+  const logger = createLogger({ config });
   let dependencyContainer = {};
-  console.log('');
-  console.log('It all started when they descended to the Piraeus...');
+
+  logger.info('It all started when they descended to the Piraeus...');
 
   function onFirstBuildFinish(appTree) {
     dependencyContainer.appTree = appTree;
+
     const server = createServer({ config, dependencyContainer });
+
     server.listen(config.port, function () {
-      console.log(`on port ${config.port}`);
-      console.log('');
+      logger.info(`on port ${config.port}`);
+      logger.info('server application loaded');
       if (onStart) onStart(server);
     });
   }
 
   function onBuildFinish(appTree) {
     dependencyContainer.appTree = appTree;
-    console.log('reload');
-    console.log('');
+    logger.info('server application loaded');
   }
 
   function onClientBuildFinish(clientPath) {
-    console.log('client reload');
-    console.log('');
+    logger.info('client application loaded');
   }
 
-  watchIndex({ config, onFirstBuildFinish, onBuildFinish });
-  watchClient({ config, onBuildFinish: onClientBuildFinish });
+  watchIndex({ config, logger, onFirstBuildFinish, onBuildFinish });
+  watchClient({ config, logger, onBuildFinish: onClientBuildFinish });
 }

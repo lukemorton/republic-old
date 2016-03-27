@@ -55,7 +55,8 @@
     "react-router": "^1.0.3",
     "redux": "^3.0.5",
     "redux-thunk": "^1.0.3",
-    "watchify": "^3.7.0"
+    "watchify": "^3.7.0",
+    "winston": "^2.2.0"
   },
   "eslintConfig": {
     "rules": {
