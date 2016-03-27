@@ -65,15 +65,6 @@ cd example-app
 republic dev
 ```
 
-You can currently boot up the server from an application. Your application should look like [`examples/`](examples/).
-
-Change into your application directory then run the following:
-
-```
-npm install -g republic
-republic dev
-```
-
 This will boot up a server at [http://localhost:3000](http://localhost:3000).
 
 ## Roadmap
