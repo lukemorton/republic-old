@@ -10,7 +10,7 @@ program.arguments('<cmd> [dir]')
 
 const exampleDir = __dirname + '/../../examples/';
 const [appDir] = program.args;
-const logger = createLogger({ config: loadConfig({ env: process.env.NODE_ENV }) });
+const logger = createLogger({ config: loadConfig({ env: 'development' }) });
 
 logger.info(`Creating new application inside ${appDir}...`);
 
