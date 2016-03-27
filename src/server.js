@@ -65,18 +65,18 @@ export function run({ env, onStart, rootDir }) {
 
     server.listen(config.port, function () {
       logger.info(`on port ${config.port}`);
-      logger.info('server application loaded');
+      logger.info('server[code]: loaded');
       if (onStart) onStart(server);
     });
   }
 
   function onBuildFinish(appTree) {
     dependencyContainer.appTree = appTree;
-    logger.info('server application loaded');
+    logger.info('server[code]: reloaded');
   }
 
   function onClientBuildFinish(clientPath) {
-    logger.info('client application loaded');
+    logger.info('client[code]: reloaded');
   }
 
   watchIndex({ config, logger, onFirstBuildFinish, onBuildFinish });
