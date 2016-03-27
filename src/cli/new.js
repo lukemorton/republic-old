@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import program from 'commander';
-import { exec, spawn } from 'child_process';
+import { exec } from 'child_process';
 import { loadConfig } from '../configuration';
 import { createLogger } from '../logging';
 
