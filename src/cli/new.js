@@ -21,7 +21,7 @@ exec('cp -r ' + exampleDir + ' ' + appDir, function () {
 
   exec('npm set progress=false && npm install', { cwd: appDir }, function () {
     clearInterval(patience);
-    logger.info('Application ready.');
+    logger.info('Application installed and ready.');
     console.log('');
     logger.info('Run the following to start a development server:');
     console.log('');
