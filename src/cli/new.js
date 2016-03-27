@@ -5,8 +5,6 @@ import { exec, spawn } from 'child_process';
 import { loadConfig } from '../configuration';
 import { createLogger } from '../logging';
 
-console.log(process.env.NODE_ENV);
-
 program.arguments('<cmd> [dir]')
   .parse(process.argv);
 
