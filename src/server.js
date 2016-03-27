@@ -44,7 +44,7 @@ function renderPage(config, dependencyContainer, logger) {
 
 export function createServer({ config, dependencyContainer, logger }) {
   const server = express();
-  server.use(createServerLogger({ config }));
+  server.use(createServerLogger({ config, logger }));
   serveStatic(server, config);
   serveClient(server, config);
   server.use(renderPage(config, dependencyContainer, logger));
