@@ -1,11 +1,11 @@
-export function loadWorld() {
-  return actions.state.merge(function ({ world }) {
-    if (world) {
-      world += 1;
+export function loadIndex() {
+  return actions.state.merge(function ({ pageViews }) {
+    if (pageViews) {
+      pageViews += 1;
     } else {
-      world = 1;
+      pageViews = 1;
     }
 
-    return { world };
+    return { pageViews };
   });
 }
