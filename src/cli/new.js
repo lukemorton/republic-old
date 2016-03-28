@@ -8,7 +8,9 @@ import { createLogger } from '../logging';
 program.arguments('<cmd> [dir]')
   .parse(process.argv);
 
-const exampleDir = __dirname + '/../../examples/skeleton';
+const republicDir = __dirname + '/../../';
+const nodeModulesDir = republicDir + 'node_modules/';
+const exampleDir = republicDir + 'examples/skeleton/';
 const [appDir] = program.args;
 const logger = createLogger({ config: loadConfig({ env: 'development' }) });
 
@@ -25,15 +27,19 @@ function finishUp() {
 }
 
 exec('cp -r ' + exampleDir + ' ' + appDir, function () {
-  exec('which git').on('exit', function (code) {
-    if (code > 0) {
-      logger.warn('Could not find git installed so did not initialise repository');
-      finishUp();
-    } else {
-      logger.info('Committing files to git repository...');
-      exec('git init && git add . && git commit -m "New republic app"', { cwd: appDir }, function () {
+  logger.info('Installing dependencies...');
+
+  exec('cp -r ' + nodeModulesDir + ' ' + appDir + '/node_modules/', function () {
+    exec('which git').on('exit', function (code) {
+      if (code > 0) {
+        logger.warn('Could not find git installed so did not initialise repository');
         finishUp();
-      });
-    }
+      } else {
+        logger.info('Committing files to git repository...');
+        exec('git init && git add . && git commit -m "New republic app"', { cwd: appDir }, function () {
+          finishUp();
+        });
+      }
+    });
   });
 });
