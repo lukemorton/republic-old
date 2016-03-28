@@ -11,25 +11,14 @@ describe('Routing', function () {
     });
 
     context('and the routes have actions', function () {
-      function containerWithActions(actions) {
-        return buildContainer({ actions,
-                                routes: [['/', { page: 'hello#world', actions: ['loadWorld'] }]],
-                                views: { hello: { world: { default: {} } } } });
-      }
-
       context('and the actions exist', function () {
-        const { appTree } = containerWithActions({ hello: { loadWorld: function () {} } });
+        const actions = { hello: { loadWorld: function () {} } };
+        const { appTree } = buildContainer({ actions,
+                                             routes: [['/', { page: 'hello#world', actions: ['loadWorld'] }]],
+                                             views: { hello: { world: { default: {} } } } });
 
         it('should create react routes', function () {
           expect(isElementOfType(createRoutes({ appTree }), Route)).to.be.true;
-        });
-      });
-
-      context('and the actions do not exist', function () {
-        const { appTree } = containerWithActions({});
-
-        it('raise error regarding action not found', function () {
-          expect(createRoutes.bind(this, { appTree })).to.throw('Action not found');
         });
       });
     });
