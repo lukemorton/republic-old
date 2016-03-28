@@ -119,7 +119,7 @@ export function watchClient({ config, logger, onBuildFinish }) {
                        packageCache,
                        plugin })
     .transform(babelify, { presets: ['es2015', 'react'],
-                             plugins: babelifyPlugins })
+                           plugins: babelifyPlugins })
     .transform(bulkify);
 
   b.on('update', () => b.bundle().pipe(clientStream({ config, logger, onBuildFinish })));
