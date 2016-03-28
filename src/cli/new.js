@@ -25,5 +25,15 @@ function finishUp() {
 }
 
 exec('cp -r ' + exampleDir + ' ' + appDir, function () {
-  finishUp();
+  exec('which git').on('exit', function (code) {
+    if (code > 0) {
+      logger.warn('Could not find git installed so did not initialise repository');
+      finishUp();
+    } else {
+      logger.info('Committing files to git repository...');
+      exec('git init && git add . && git commit -m "New republic app"', { cwd: appDir }, function () {
+        finishUp();
+      });
+    }
+  });
 });
