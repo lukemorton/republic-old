@@ -8,7 +8,7 @@ import { createLogger } from '../logging';
 program.arguments('<cmd> [dir]')
   .parse(process.argv);
 
-const exampleDir = __dirname + '/../../examples/';
+const exampleDir = __dirname + '/../../examples/skeleton';
 const [appDir] = program.args;
 const logger = createLogger({ config: loadConfig({ env: 'development' }) });
 
