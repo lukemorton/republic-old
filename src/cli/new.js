@@ -14,19 +14,16 @@ const logger = createLogger({ config: loadConfig({ env: 'development' }) });
 
 logger.info(`Creating new application inside ${appDir}...`);
 
+function finishUp() {
+  logger.info('Application installed and ready.');
+  console.log('');
+  logger.info('Run the following to start a development server:');
+  console.log('');
+  logger.info('    cd', appDir);
+  logger.info('    republic dev');
+  console.log('');
+}
+
 exec('cp -r ' + exampleDir + ' ' + appDir, function () {
-  logger.info('Installing dependencies...');
-
-  const patience = setInterval(_ => logger.info('Still installing...'), 10000);
-
-  exec('npm set progress=false && npm install', { cwd: appDir }, function () {
-    clearInterval(patience);
-    logger.info('Application installed and ready.');
-    console.log('');
-    logger.info('Run the following to start a development server:');
-    console.log('');
-    logger.info('    cd', appDir);
-    logger.info('    republic dev');
-    console.log('');
-  });
+  finishUp();
 });
