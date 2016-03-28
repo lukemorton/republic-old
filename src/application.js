@@ -1,4 +1,6 @@
 import browserify from 'browserify';
+import babelify from 'babelify';
+import bulkify from 'bulkify';
 import watchify from 'watchify';
 import livereactload from 'livereactload';
 import fs from 'fs';
@@ -47,8 +49,8 @@ export function buildIndex({ config, logger, onBuildFinish }) {
   ensureTmpPathExists(config);
 
   browserify(buildIndexEntryPoint(config, logger), { standalone: 'app', insertGlobalVars })
-    .transform('babelify', { presets: ['es2015', 'react'] })
-    .transform('bulkify')
+    .transform(babelify, { presets: ['es2015', 'react'] })
+    .transform(bulkify)
     .bundle()
     .pipe(indexStream({ config, logger, onBuildFinish }));
 }
@@ -67,8 +69,8 @@ export function watchIndex({ config, logger, onBuildFinish, onFirstBuildFinish }
                        insertGlobalVars,
                        packageCache,
                        plugin })
-    .transform('babelify', { presets: ['es2015', 'react'] })
-    .transform('bulkify');
+    .transform(babelify, { presets: ['es2015', 'react'] })
+    .transform(bulkify);
 
   b.on('update', () => b.bundle().pipe(indexStream({ config, logger, onBuildFinish })));
   b.bundle().pipe(indexStream({ config, logger, onBuildFinish: onFirstBuildFinish }));
@@ -95,8 +97,8 @@ export function buildClient({ config, logger, onBuildFinish }) {
   ensureTmpPathExists(config);
 
   browserify(buildClientEntryPoint(config, logger), { insertGlobalVars })
-    .transform('babelify', { presets: ['es2015', 'react'] })
-    .transform('bulkify')
+    .transform(babelify, { presets: ['es2015', 'react'] })
+    .transform(bulkify)
     .bundle()
     .pipe(clientStream({ config, logger, onBuildFinish }));
 }
@@ -116,9 +118,9 @@ export function watchClient({ config, logger, onBuildFinish }) {
                        insertGlobalVars,
                        packageCache,
                        plugin })
-    .transform('babelify', { presets: ['es2015', 'react'],
+    .transform(babelify, { presets: ['es2015', 'react'],
                              plugins: babelifyPlugins })
-    .transform('bulkify');
+    .transform(bulkify);
 
   b.on('update', () => b.bundle().pipe(clientStream({ config, logger, onBuildFinish })));
   b.bundle().pipe(clientStream({ config, logger, onBuildFinish }));
