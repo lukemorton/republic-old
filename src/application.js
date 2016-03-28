@@ -108,13 +108,16 @@ export function watchClient({ config, logger, onBuildFinish }) {
   const cache = {};
   const packageCache = {};
   const plugin = [watchify, livereactload];
+  const babelifyPlugins = [['react-transform', { transforms: [{ transform: 'livereactload/babel-transform',
+                                                                imports: ['react'] }] }]];
 
   let b = browserify({ cache,
                        entries,
                        insertGlobalVars,
                        packageCache,
                        plugin })
-    .transform('babelify', { presets: ['es2015', 'react'] })
+    .transform('babelify', { presets: ['es2015', 'react'],
+                             plugins: babelifyPlugins })
     .transform('bulkify');
 
   b.on('update', () => b.bundle().pipe(clientStream({ config, logger, onBuildFinish })));

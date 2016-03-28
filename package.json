@@ -78,26 +78,7 @@
     "presets": [
       "es2015",
       "react"
-    ],
-    "env": {
-      "development": {
-        "plugins": [
-          [
-            "react-transform",
-            {
-              "transforms": [
-                {
-                  "transform": "livereactload/babel-transform",
-                  "imports": [
-                    "react"
-                  ]
-                }
-              ]
-            }
-          ]
-        ]
-      }
-    }
+    ]
   },
   "devDependencies": {
     "chai": "^3.5.0",
