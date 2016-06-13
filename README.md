@@ -17,12 +17,12 @@ Republic was built to provide guidance and productivity to anyone wanting to bui
 
 Republic is built atop modern JavaScript libraries to provide a full framework for frontend development.
 
-- **React** for building the views of your application
-- **Redux** for managing state or data of your application
+- **React** for building the UI of your application
+- **Redux** for managing the state of your application
 - **Mocha/Chai/Enzyme** for testing your application
-- **Express** for serving your applications first page load
+- **Express** for serving your application
 - **Sass** for styling your application
-- **Babel** for providing modern JavaScript
+- **Babel** for modern JavaScript
 - **Browserify** for building your application
 
 Along with many other libraries for everything in between. Go open source! We'd especially like to say thanks to all the contributors of the npm modules we've used to build react :)
