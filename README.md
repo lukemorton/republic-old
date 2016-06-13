@@ -9,7 +9,7 @@
 
 Republic was built to provide guidance and productivity to anyone wanting to build an application with React. Frontend development is an exciting place at the moment and there are many opinions and libraries. Republic brings together popular opinions and libraries in order to:
 
-- Reduce boilerplate and setup time when creating an isomorphic react app
+- Reduce boilerplate and setup time when creating a universal React app
 - Welcome newcomers with structure, consistency and most importantly documentation
 - Encourage developers to test their applications
 
