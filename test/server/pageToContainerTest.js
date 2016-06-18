@@ -1,20 +1,20 @@
-import { pageToComponent } from '../src/components';
+import pageToContainer from '../../src/server/pageToContainer';
 import { connect } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 
-describe('Components', function () {
-  context('when converting page to component', function () {
-    it('should return connected component', function () {
+describe('pageToContainer()', function () {
+  context('when converting page to container', function () {
+    it('should return connected container', function () {
       const { appTree } = buildContainer({ views: { hello: { world: { default: {} } } } });
-      const component = pageToComponent({ appTree, page: 'hello#world', actions: [] });
-      expect(component.displayName).to.equal('Connect(Component)');
+      const container = pageToContainer({ appTree, page: 'hello#world', actions: [] });
+      expect(container.displayName).to.equal('Connect(Component)');
     });
 
     context('and the application does not have any views', function () {
       const { appTree } = buildContainer({ views: null });
 
       it('should raise error regarding missing views', function () {
-        expect(pageToComponent.bind(this, { appTree, page: 'hello#world' })).to.throw('Application does not have any views');
+        expect(pageToContainer.bind(this, { appTree, page: 'hello#world' })).to.throw('Application does not have any views');
       });
     });
 
@@ -22,7 +22,7 @@ describe('Components', function () {
       const { appTree } = buildContainer({ views: {} });
 
       it('should raise error regarding missing module', function () {
-        expect(pageToComponent.bind(this, { appTree, page: 'hello#world' })).to.throw('Module hello not found in views directory');
+        expect(pageToContainer.bind(this, { appTree, page: 'hello#world' })).to.throw('Module hello not found in views directory');
       });
     });
 
@@ -30,7 +30,7 @@ describe('Components', function () {
       const { appTree } = buildContainer({ views: { hello: {} } });
 
       it('should raise error regarding missing view', function () {
-        expect(pageToComponent.bind(this, { appTree, page: 'hello#world' })).to.throw('View hello#world not found');
+        expect(pageToContainer.bind(this, { appTree, page: 'hello#world' })).to.throw('View hello#world not found');
       });
     });
 
@@ -40,7 +40,7 @@ describe('Components', function () {
       const actions = ['loadWorld'];
 
       it('should raise error regarding missing views', function () {
-        expect(pageToComponent.bind(this, { appTree, actions, page: 'hello#world' })).to.throw('Application does not have any actions');
+        expect(pageToContainer.bind(this, { appTree, actions, page: 'hello#world' })).to.throw('Application does not have any actions');
       });
     });
 
@@ -49,7 +49,7 @@ describe('Components', function () {
       const actions = ['loadWorld'];
 
       it('raise error regarding action not found', function () {
-        expect(pageToComponent.bind(this, { appTree, actions, page: 'hello#world' })).to.throw('Module hello not found in actions directory');
+        expect(pageToContainer.bind(this, { appTree, actions, page: 'hello#world' })).to.throw('Module hello not found in actions directory');
       });
     });
 
@@ -59,17 +59,17 @@ describe('Components', function () {
       const actions = ['loadWorld'];
 
       it('raise error regarding action not found', function () {
-        expect(pageToComponent.bind(this, { appTree, actions, page: 'hello#world' })).to.throw('Action hello#loadWorld not found');
+        expect(pageToContainer.bind(this, { appTree, actions, page: 'hello#world' })).to.throw('Action hello#loadWorld not found');
       });
     });
 
     context('and a layout is specified', function () {
       const mockStore = configureMockStore([]);
 
-      it('should wrap component with layout', function () {
+      it('should wrap container with layout', function () {
         const { appTree } = exampleContainer;
-        const component = pageToComponent({ appTree, page: 'hello#world', actions: [] });
-        const wrapper = render(React.createElement(component, { store: mockStore() }));
+        const container = pageToContainer({ appTree, page: 'hello#world', actions: [] });
+        const wrapper = render(React.createElement(container, { store: mockStore() }));
         expect(wrapper.find('.layout')).to.have.length(1);
       });
     });

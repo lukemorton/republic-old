@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { pageToComponent } from './components';
+import pageToContainer from './server/pageToContainer';
 
 function createRoute(appTree, [path, { page, actions }]) {
-  const component = pageToComponent({ appTree, page, actions });
+  const component = pageToContainer({ appTree, page, actions });
 
   if (path === '/') {
     return React.createElement(IndexRoute, { component, key: path });

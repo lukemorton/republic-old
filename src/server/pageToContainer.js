@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-function findComponentClass(appTree, module, view) {
+function findContainerClass(appTree, module, view) {
   if (!appTree.app.views) {
     throw new Error('Application does not have any views');
   } else if (!appTree.app.views[module]) {
@@ -13,7 +13,7 @@ function findComponentClass(appTree, module, view) {
   return appTree.app.views[module][view].default;
 }
 
-function findComponentActions(appTree, module, actions) {
+function findContainerActions(appTree, module, actions) {
   if (actions.length === 0) {
     return [];
   } else if (!appTree.app.actions) {
@@ -22,10 +22,10 @@ function findComponentActions(appTree, module, actions) {
     throw new Error(`Module ${module} not found in actions directory`);
   }
 
-  return actions.map(findComponentAction.bind(this, appTree, module));
+  return actions.map(findContainerAction.bind(this, appTree, module));
 }
 
-function findComponentAction(appTree, module, action) {
+function findContainerAction(appTree, module, action) {
   if (!appTree.app.actions[module][action]) {
     throw new Error(`Action ${module}#${action} not found`);
   }
@@ -33,29 +33,29 @@ function findComponentAction(appTree, module, action) {
   return appTree.app.actions[module][action];
 }
 
-function wrapInLayout(appTree, props, component) {
+function wrapInLayout(appTree, props, container) {
   if (appTree.app.views.layouts && appTree.app.views.layouts.application) {
     const Layout = appTree.app.views.layouts.application.default;
-    return React.createElement(Layout, props, component);
+    return React.createElement(Layout, props, container);
   } else {
-    return component;
+    return container;
   }
 }
 
-export function pageToComponent({ appTree, page, actions = [] }) {
+export default function pageToContainer({ appTree, page, actions = [] }) {
   const [module, view] = page.split('#');
-  const component = findComponentClass(appTree, module, view);
-  const componentActions = findComponentActions(appTree, module, actions);
+  const container = findContainerClass(appTree, module, view);
+  const containerActions = findContainerActions(appTree, module, actions);
 
-  const connectedComponent = connect(state => state)(function (props) {
+  const connectedContainer = connect(state => state)(function (props) {
     if (process.browser) {
-      componentActions.map(action => props.dispatch(action(props)));
+      containerActions.map(action => props.dispatch(action(props)));
     }
 
-    return wrapInLayout(appTree, props, React.createElement(component, props));
+    return wrapInLayout(appTree, props, React.createElement(container, props));
   });
 
-  connectedComponent.actions = componentActions;
+  connectedContainer.actions = containerActions;
 
-  return connectedComponent;
+  return connectedContainer;
 }
