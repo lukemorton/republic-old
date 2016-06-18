@@ -26,13 +26,12 @@ function renderPage(config, dependencyContainer, logger) {
 
     match({ routes: createRoutes({ appTree, store }), location: request.url }, (error, redirectLocation, renderProps) => {
       if (redirectLocation) {
+        logger.info('Redirect location:', redirectLocation);
         response.redirect(redirectLocation.pathname + redirectLocation.search);
-        logger.info('redirectLocation:', redirectLocation);
       } else if (error) {
-        logger.error('error:', error);
+        logger.error('Routing error:', error);
         response.status(500).send(error.message);
       } else if (!renderProps) {
-        logger.error('no route matched');
         response.status(404).send('Not found');
       } else {
         response.write('<!DOCTYPE html>');
