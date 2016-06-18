@@ -7,7 +7,7 @@ describe('Server', function () {
     it('should return 200', function (done) {
       const config = loadConfig({ env: 'test' });
       const logger = createLogger({ config });
-      const server = createServer({ config, dependencyContainer: exampleContainer, logger });
+      const server = createServer({ config, dependencies: exampleDependencies, logger });
       request(server).get('/').expect(200, done);
     });
   });

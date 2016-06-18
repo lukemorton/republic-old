@@ -1,7 +1,7 @@
 // Load test support
 //
 import './support/components';
-import './support/dependency_container';
+import './support/dependencies';
 
 // Expose test helpers as globals
 //

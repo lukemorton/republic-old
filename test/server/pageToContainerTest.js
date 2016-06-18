@@ -5,13 +5,13 @@ import configureMockStore from 'redux-mock-store';
 describe('pageToContainer()', function () {
   context('when converting page to container', function () {
     it('should return connected container', function () {
-      const { appTree } = buildContainer({ views: { hello: { world: { default: {} } } } });
+      const { appTree } = buildDependencies({ views: { hello: { world: { default: {} } } } });
       const container = pageToContainer({ appTree, page: 'hello#world', actions: [] });
       expect(container.displayName).to.equal('Connect(Component)');
     });
 
     context('and the application does not have any views', function () {
-      const { appTree } = buildContainer({ views: null });
+      const { appTree } = buildDependencies({ views: null });
 
       it('should raise error regarding missing views', function () {
         expect(pageToContainer.bind(this, { appTree, page: 'hello#world' })).to.throw('Application does not have any views');
@@ -19,7 +19,7 @@ describe('pageToContainer()', function () {
     });
 
     context('and the module does not exist in views directory', function () {
-      const { appTree } = buildContainer({ views: {} });
+      const { appTree } = buildDependencies({ views: {} });
 
       it('should raise error regarding missing module', function () {
         expect(pageToContainer.bind(this, { appTree, page: 'hello#world' })).to.throw('Module hello not found in views directory');
@@ -27,7 +27,7 @@ describe('pageToContainer()', function () {
     });
 
     context('and the view does not exist in module', function () {
-      const { appTree } = buildContainer({ views: { hello: {} } });
+      const { appTree } = buildDependencies({ views: { hello: {} } });
 
       it('should raise error regarding missing view', function () {
         expect(pageToContainer.bind(this, { appTree, page: 'hello#world' })).to.throw('View hello#world not found');
@@ -35,8 +35,8 @@ describe('pageToContainer()', function () {
     });
 
     context('and the application does not have any actions', function () {
-      const { appTree } = buildContainer({ actions: null,
-                                           views: { hello: { world: { default: {} } } } });
+      const { appTree } = buildDependencies({ actions: null,
+                                              views: { hello: { world: { default: {} } } } });
       const actions = ['loadWorld'];
 
       it('should raise error regarding missing views', function () {
@@ -45,7 +45,7 @@ describe('pageToContainer()', function () {
     });
 
     context('and the module does not exist in actions directory', function () {
-      const { appTree } = exampleContainer;
+      const { appTree } = exampleDependencies;
       const actions = ['loadWorld'];
 
       it('raise error regarding action not found', function () {
@@ -54,8 +54,8 @@ describe('pageToContainer()', function () {
     });
 
     context('and the action does not exist in module', function () {
-      const { appTree } = buildContainer({ actions: { hello: {} },
-                                           views: { hello: { world: { default: {} } } } });
+      const { appTree } = buildDependencies({ actions: { hello: {} },
+                                              views: { hello: { world: { default: {} } } } });
       const actions = ['loadWorld'];
 
       it('raise error regarding action not found', function () {
@@ -67,7 +67,7 @@ describe('pageToContainer()', function () {
       const mockStore = configureMockStore([]);
 
       it('should wrap container with layout', function () {
-        const { appTree } = exampleContainer;
+        const { appTree } = exampleDependencies;
         const container = pageToContainer({ appTree, page: 'hello#world', actions: [] });
         const wrapper = render(React.createElement(container, { store: mockStore() }));
         expect(wrapper.find('.layout')).to.have.length(1);

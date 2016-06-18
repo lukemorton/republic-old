@@ -19,9 +19,9 @@ function serveClient(server, config) {
   });
 }
 
-function renderPage(config, dependencyContainer, logger) {
+function renderPage(config, dependencies, logger) {
   return function (request, response) {
-    const { appTree } = dependencyContainer;
+    const { appTree } = dependencies;
     const store = createStore();
 
     match({ routes: createRoutes({ appTree, store }), location: request.url }, (error, redirectLocation, renderProps) => {
@@ -41,26 +41,26 @@ function renderPage(config, dependencyContainer, logger) {
   };
 }
 
-export function createServer({ config, dependencyContainer, logger }) {
+export function createServer({ config, dependencies, logger }) {
   const server = express();
   server.use(createServerLogger({ config, logger }));
   serveStatic(server, config);
   serveClient(server, config);
-  server.use(renderPage(config, dependencyContainer, logger));
+  server.use(renderPage(config, dependencies, logger));
   return server;
 }
 
 export function run({ env, onStart, rootDir }) {
   const config = loadConfig({ env, rootDir });
   const logger = createLogger({ config });
-  let dependencyContainer = {};
+  let dependencies = {};
 
   logger.info('It all started when they descended to the Piraeus...');
 
   function onFirstBuildFinish(appTree) {
-    dependencyContainer.appTree = appTree;
+    dependencies.appTree = appTree;
 
-    const server = createServer({ config, dependencyContainer, logger });
+    const server = createServer({ config, dependencies, logger });
 
     server.listen(config.port, function () {
       logger.info(`server[port]: ${config.port}`);
@@ -70,7 +70,7 @@ export function run({ env, onStart, rootDir }) {
   }
 
   function onBuildFinish(appTree) {
-    dependencyContainer.appTree = appTree;
+    dependencies.appTree = appTree;
     logger.info('server[code]: reloaded');
   }
 
