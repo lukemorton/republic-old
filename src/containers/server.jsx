@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { RoutingContext } from 'react-router';
+import { RouterContext } from 'react-router';
 import { renderToString } from 'react-dom/server';
 
 function dispatchActions(store, renderProps) {
@@ -14,7 +14,7 @@ function appHtml(store, renderProps) {
 
   return renderToString(
     <Provider store={store}>
-      <RoutingContext { ...renderProps } />
+      <RouterContext { ...renderProps } />
     </Provider>
   );
 }
