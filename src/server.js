@@ -1,7 +1,7 @@
 import express from 'express';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
 import { watchIndex, watchClient } from './application';
-import { loadConfig } from './configuration';
+import loadConfig from './core/configuration';
 import createLogger from './server/logger';
 import httpLogger from './server/httpLogger';
 import { match } from 'react-router';

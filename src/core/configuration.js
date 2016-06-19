@@ -33,6 +33,6 @@ function defaultConfig(env, rootDir = process.cwd()) {
   return { port: 3000, app, env, express, httpLogger, logger };
 }
 
-export function loadConfig({ env, rootDir }) {
+export default function configuration({ env, rootDir }) {
   return defaultConfig(env, rootDir);
 }
