@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import pageToContainer from './server/pageToContainer';
+import pageToContainer from './pageToContainer';
 
 function createRoute(appTree, [path, { page, actions }]) {
   const component = pageToContainer({ appTree, page, actions });
@@ -12,7 +12,7 @@ function createRoute(appTree, [path, { page, actions }]) {
   }
 }
 
-export function createRoutes({ appTree }) {
+export default function routes({ appTree }) {
   const routes = appTree.config.routes.default.map(route => createRoute(appTree, route));
   return React.createElement(Route, { path: '/' }, routes);
 }

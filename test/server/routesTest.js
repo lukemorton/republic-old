@@ -1,4 +1,4 @@
-import { createRoutes } from '../src/routing';
+import routes from '../../src/server/routes';
 import { Route } from 'react-router';
 
 describe('Routing', function () {
@@ -6,7 +6,7 @@ describe('Routing', function () {
     context('and the routes no not have actions', function () {
       it('should create react routes', function () {
         const { appTree } = exampleDependencies;
-        expect(isElementOfType(createRoutes({ appTree }), Route)).to.be.true;
+        expect(isElementOfType(routes({ appTree }), Route)).to.be.true;
       });
     });
 
@@ -18,7 +18,7 @@ describe('Routing', function () {
                                                 views: { hello: { world: { default: {} } } } });
 
         it('should create react routes', function () {
-          expect(isElementOfType(createRoutes({ appTree }), Route)).to.be.true;
+          expect(isElementOfType(routes({ appTree }), Route)).to.be.true;
         });
       });
     });

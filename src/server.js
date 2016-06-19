@@ -6,7 +6,7 @@ import createLogger from './server/logger';
 import httpLogger from './server/httpLogger';
 import { match } from 'react-router';
 import createStore from './core/store';
-import { createRoutes } from './routing';
+import routes from './server/routes';
 import ServerContainer from './containers/server';
 
 function serveStatic(server, config) {
@@ -25,7 +25,7 @@ function renderPage(config, dependencies, logger) {
     const { appTree } = dependencies;
     const store = createStore();
 
-    match({ routes: createRoutes({ appTree, store }), location: request.url }, (error, redirectLocation, renderProps) => {
+    match({ routes: routes({ appTree, store }), location: request.url }, (error, redirectLocation, renderProps) => {
       if (redirectLocation) {
         logger.info('Redirect location:', redirectLocation);
         response.redirect(redirectLocation.pathname + redirectLocation.search);
