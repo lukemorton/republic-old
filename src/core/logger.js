@@ -1,7 +1,9 @@
-import coreLogger from '../core/logger';
+import winston from 'winston';
 
 export default function logger({ config }) {
-  const logger = coreLogger({ config });
+  const logger = winston.cli();
+  logger.setLevels(winston.config.npm.levels);
+  logger.level = config.logger.level || 'info';
 
   logger.stream = {
     write: function (message, encoding) {
