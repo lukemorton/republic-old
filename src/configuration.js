@@ -28,7 +28,9 @@ function defaultConfig(env, rootDir = process.cwd()) {
     level: loggerLevel()
   };
 
-  return { port: 3000, app, env, express, logger };
+  const httpLogger = {};
+
+  return { port: 3000, app, env, express, httpLogger, logger };
 }
 
 export function loadConfig({ env, rootDir }) {

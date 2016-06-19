@@ -3,7 +3,7 @@
 import program from 'commander';
 import { exec } from 'child_process';
 import { loadConfig } from '../configuration';
-import { createLogger } from '../logging';
+import createLogger from '../core/logger';
 
 program.arguments('<cmd> [dir]')
   .parse(process.argv);
