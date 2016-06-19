@@ -9,6 +9,6 @@ function stateReducer(state = {}, action) {
   }
 }
 
-export function createStore() {
+export default function store() {
   return Redux.applyMiddleware(thunk)(Redux.createStore)(stateReducer, global.__INITIAL_STATE__);
 }

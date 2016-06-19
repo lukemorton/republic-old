@@ -5,7 +5,7 @@ import loadConfig from './core/configuration';
 import createLogger from './server/logger';
 import httpLogger from './server/httpLogger';
 import { match } from 'react-router';
-import { createStore } from './store';
+import createStore from './core/store';
 import { createRoutes } from './routing';
 import ServerContainer from './containers/server';
 

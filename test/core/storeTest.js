@@ -1,6 +1,6 @@
-import { createStore } from '../src/store';
+import createStore from '../../src/core/store';
 
-describe('Store', function () {
+describe('store()', function () {
   context('when creating store', function () {
     it('should respond to MERGE_STATE action', function () {
       const store = createStore();
