@@ -12,8 +12,8 @@
     "build": "babel src --out-dir lib",
     "prepublish": "npm run build",
     "lint": "eslint src",
-    "test": "mocha --watch --require ./test/test_helper --compilers js:babel-register test/{**/*,*}.js",
-    "test:once": "mocha --require ./test/test_helper --compilers js:babel-register"
+    "test": "mocha --watch --require ./test/testHelper --compilers js:babel-register test/{**/*,*}.js",
+    "test:once": "mocha --require ./test/testHelper --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
