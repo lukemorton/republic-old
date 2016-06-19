@@ -20,3 +20,6 @@ global.render = render;
 
 import request from 'supertest';
 global.request = request;
+
+import sinon from 'sinon';
+global.sinon = sinon;

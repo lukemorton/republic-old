@@ -2,7 +2,8 @@ import express from 'express';
 import { renderToStaticMarkup } from 'react-dom-stream/server';
 import { watchIndex, watchClient } from './application';
 import { loadConfig } from './configuration';
-import { createLogger, createServerLogger } from './logging';
+import logger from './server/logger';
+import { createServerLogger } from './logging';
 import { match } from 'react-router';
 import { createStore } from './store';
 import { createRoutes } from './routing';
@@ -52,7 +53,7 @@ export function createServer({ config, dependencies, logger }) {
 
 export function run({ env, onStart, rootDir }) {
   const config = loadConfig({ env, rootDir });
-  const logger = createLogger({ config });
+  const logger = logger({ config });
   let dependencies = {};
 
   logger.info('It all started when they descended to the Piraeus...');
