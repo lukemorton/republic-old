@@ -1,9 +1,9 @@
-import app from './server/app';
-import { watchIndex, watchClient } from './application';
-import loadConfig from './core/configuration';
-import createLogger from './server/logger';
+import app from '../../server/app';
+import { watchIndex, watchClient } from '../../application';
+import loadConfig from '../../core/configuration';
+import createLogger from '../../server/logger';
 
-export function run({ env, onStart, rootDir }) {
+export default function runDev({ env, onStart, rootDir }) {
   const config = loadConfig({ env, rootDir });
   const logger = createLogger({ config });
   let dependencies = {};

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import program from 'commander';
-import { run } from '../server';
+import run from '../dev/server/run';
 
 program
   .option('--env [env]', 'Set NODE_ENV to this value')
