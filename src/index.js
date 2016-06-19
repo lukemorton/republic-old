@@ -1,7 +1,7 @@
-import * as form from './actions/form';
-import * as http from './actions/http';
-import * as state from './actions/state';
-import Form from './views/form';
+import * as form from './core/actions/form';
+import * as http from './core/actions/http';
+import * as state from './core/actions/state';
+import Form from './core/views/form';
 
 const actions = { form, http, state };
 const views = { Form };
