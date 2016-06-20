@@ -7,7 +7,7 @@ export default function httpLogger({ config, logger }) {
     case 'development':
       return morgan('dev', morganConfig);
     case 'test':
-      return morgan('dev', Object.assign(morganConfig, { skip() { return true } }));
+      return morgan('dev', Object.assign(morganConfig, { skip() { return true; } }));
     default:
       return morgan('combined', morganConfig);
   }
