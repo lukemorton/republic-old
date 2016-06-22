@@ -70,8 +70,11 @@ This will boot up a server at [http://localhost:3000](http://localhost:3000).
  - [x] Server side hot loading (no browser refresh tho)
  - [x] Client side hot loading of views extending React.Component
  - [x] `republic new` command for new projects
+ - [x] Rewrite republic with tests (initial dev was spike)
+ - [x] Implement production server
  - [ ] Promo video
- - [ ] Rewrite republic with tests (initial dev was spike)
+ - [ ] Test src/dev/
+ - [ ] Implement SCSS asset pipeline
  - [ ] Implement test runner in `republic dev`
  - [ ] `republic generate` command for new projects
  - [ ] Form action and view helpers
