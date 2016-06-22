@@ -6,7 +6,8 @@
   "bin": {
     "republic": "lib/cli/index.js",
     "republic-dev": "lib/cli/dev.js",
-    "republic-new": "lib/cli/new.js"
+    "republic-new": "lib/cli/new.js",
+    "republic-server": "lib/cli/server.js"
   },
   "scripts": {
     "build": "babel src --out-dir lib",
