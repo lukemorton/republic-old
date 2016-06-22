@@ -1,5 +1,6 @@
 import app from '../../server/app';
-import { watchIndex, watchClient } from '../../application';
+import watchIndex from '../watchIndex';
+import watchClient from '../watchClient';
 import loadConfig from '../../core/configuration';
 import createLogger from '../../server/logger';
 
