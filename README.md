@@ -61,6 +61,17 @@ republic dev
 ```
 
 This will boot up a server at [http://localhost:3000](http://localhost:3000).
+The dev server will watch for changes in your app and livereload them.
+
+### Other commands
+
+```
+republic server
+```
+
+This will run a production server that loads the application once rather than
+reloading it when files change.
+
 
 ## Roadmap
 
